@@ -34,7 +34,7 @@ class analyze:
 
         #Calculate Hash Values
         for image in self.image_list:
-            self.image_hashes.append(imagehash.average_hash(Image.open(image)) * _precision)
+            self.image_hashes.append(imagehash.average_hash(Image.open(image)))
 
     def _calculate_hash_differences(self):
         #Initialize Diff List
@@ -42,7 +42,7 @@ class analyze:
 
         #Calculate Hash Differences
         for i in range(0, len(self.image_hashes) - 1):
-            self.hash_diffs.append(self.image_hashes[i] - self.image_hashes[i + 1])
+            self.hash_diffs.append((self.image_hashes[i] - self.image_hashes[i + 1]) * _precision)
 
     def detect_scenes(self, threshold = None):
         #Process Set Arguments
