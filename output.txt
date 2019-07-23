@@ -1,18 +1,28 @@
-[11, 38, 8, 26, 12, 44, 9, 36, 5, 33, 22, 22, 26, 11, 31, 23, 36, 22, 28, 5, 45, 3, 52, 0, 29]
-*17 scenes detected*
-
-*Possible Duplicates*
-['./images/tests/augmentation/test 1.jpg', './images/tests/augmentation/test 10.jpg', './images/tests/augmentation/test 11.jpg']
-
-['./images/tests/augmentation/test 13.jpg', './images/tests/augmentation/test 14.jpg', './images/tests/augmentation/test 15.jpg']
-
-['./images/tests/augmentation/test 17.jpg', './images/tests/augmentation/test 18.jpg']
-
-['./images/tests/augmentation/test 2.jpg', './images/tests/augmentation/test 20.jpg']
-
-['./images/tests/augmentation/test 22.jpg', './images/tests/augmentation/test 23.jpg']
-
-['./images/tests/augmentation/test 25.jpg', './images/tests/augmentation/test 26.jpg', './images/tests/augmentation/test 3.jpg']
-
-['./images/tests/augmentation/test 5.jpg', './images/tests/augmentation/test 6.jpg', './images/tests/augmentation/test 7.jpg']
-
+Difference between images 01 and 02: 2%
+Difference between images 02 and 03: 33%
+Difference between images 03 and 04: 5%
+Difference between images 04 and 05: 45%
+Difference between images 05 and 06: 3%
+Difference between images 06 and 07: 52%
+Difference between images 07 and 08: 0%
+Difference between images 08 and 09: 0%
+Difference between images 09 and 10: 29%
+Difference between images 10 and 11: 4%
+Difference between images 11 and 12: 38%
+Difference between images 12 and 13: 8%
+Difference between images 13 and 14: 26%
+Difference between images 14 and 15: 12%
+Difference between images 15 and 16: 44%
+Difference between images 16 and 17: 9%
+Difference between images 17 and 18: 36%
+Difference between images 18 and 19: 5%
+Difference between images 19 and 20: 33%
+Difference between images 20 and 21: 0%
+Difference between images 21 and 22: 0%
+Difference between images 22 and 23: 26%
+Difference between images 23 and 24: 11%
+Difference between images 24 and 25: 31%
+Difference between images 25 and 26: 23%
+Difference between images 26 and 27: 36%
+Difference between images 27 and 28: 22%
+*15 scenes detected*

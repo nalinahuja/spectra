@@ -7,7 +7,7 @@ class analyze:
     def __init__(self, path):
         self.image_path = path
         self.scene_threshold = 15
-        self.duplicate_threshold = 15
+        self.duplicate_threshold = 10
 
         self._get_dir_contents(self.image_path)
 
@@ -42,8 +42,6 @@ class analyze:
         for i in range(0, len(self.image_hashes) - 1):
             self.hash_diffs.append(self.image_hashes[i] - self.image_hashes[i + 1])
 
-        print(self.hash_diffs)
-
     def detect_scenes(self, threshold = None):
         #Process Set Arguments
         if (not(threshold is None)):
@@ -54,7 +52,7 @@ class analyze:
 
         #Determine Scenes
         for diff in self.hash_diffs:
-            if (diff > self.scene_threshold):
+            if (diff >= self.scene_threshold):
                 scenes += 1
 
         #Return Scene Count
@@ -73,12 +71,15 @@ class analyze:
 
         #Determine Duplicates
         for i in range(0, len(self.hash_diffs)):
-            if (self.hash_diffs[i] < self.duplicate_threshold) and (len(scene) > 1):
+            if (self.hash_diffs[i] <= self.duplicate_threshold) and (len(scene) > 1):
                 duplicates.append(scene)
                 scene = []
             else:
-                scene.append(self.image_list[i])
-                scene.append(self.image_list[i + 1])
+                if (len(scene) == 0):
+                    scene.append(self.image_list[i])
+                    scene.append(self.image_list[i + 1])
+                else:
+                    scene.append(self.image_list[i + 1])
 
         #Return Duplicate Array
         return duplicates
