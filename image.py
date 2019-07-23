@@ -3,11 +3,13 @@ import imagehash
 
 from PIL import Image
 
+_precision = 1.75
+
 class analyze:
     def __init__(self, path):
         self.image_path = path
         self.scene_threshold = 15
-        self.duplicate_threshold = 10
+        self.duplicate_threshold = 7.5
 
         self._get_dir_contents(self.image_path)
 
@@ -32,7 +34,7 @@ class analyze:
 
         #Calculate Hash Values
         for image in self.image_list:
-            self.image_hashes.append(imagehash.average_hash(Image.open(image)))
+            self.image_hashes.append(imagehash.average_hash(Image.open(image)) * _precision)
 
     def _calculate_hash_differences(self):
         #Initialize Diff List
