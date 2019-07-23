@@ -7,7 +7,7 @@ class analyze:
     def __init__(self, path):
         self.image_path = path
         self.scene_threshold = 15
-        self.duplicate_threshold = 10
+        self.duplicate_threshold = 15
 
         self._get_dir_contents(self.image_path)
 
@@ -73,11 +73,12 @@ class analyze:
 
         #Determine Duplicates
         for i in range(0, len(self.hash_diffs)):
-            if (self.hash_diffs[i] > self.duplicate_threshold) and (len(scene) > 1):
+            if (self.hash_diffs[i] < self.duplicate_threshold) and (len(scene) > 1):
                 duplicates.append(scene)
                 scene = []
             else:
                 scene.append(self.image_list[i])
+                scene.append(self.image_list[i + 1])
 
         #Return Duplicate Array
         return duplicates
@@ -89,8 +90,6 @@ class analyze:
 
         #Initalize Blurred Images Array
         blurred_images = []
-
-
 
         #Return Blurred Images Array
         return blurred_images
