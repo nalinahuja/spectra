@@ -1,7 +1,12 @@
 import image
 
-grp1 = image.analyze("./images/tests/augmentation_test")
+grp1 = image.analyze("./images/tests/augmentation")
 
 print("*" + str(grp1.detect_scenes()) + " scenes detected*")
 print("\n*Possible Duplicates*")
-print(grp1.detect_duplicates())
+
+dup_arr = grp1.detect_duplicates()
+
+for arr in dup_arr:
+    print(arr)
+    print("")
