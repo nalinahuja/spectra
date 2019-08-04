@@ -14,7 +14,7 @@ for hash in grp1.hash_diffs:
     print("Difference between images {:02} and {:02}: {}%".format(cnt, cnt + 1, hash))
     cnt += 1
 
-#Print Duplicate Count
+#Print Duplicate Arrays
 print("\n*Possible Duplicates*")
 
 for scene in grp1.detect_duplicates():
