@@ -11,7 +11,7 @@ cnt =  1
 
 print("\n*Hash Differences*")
 for hash in grp1.hash_diffs:
-    print("Difference between images {:02} and {:02}: {}%".format(cnt, cnt + 1, hash))
+    print("Difference between images {} and {}: {:02}%".format(cnt, cnt + 1, hash))
     cnt += 1
 
 #Print Duplicate Arrays
