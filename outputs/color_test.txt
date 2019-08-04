@@ -1,0 +1,27 @@
+*8 scenes detected*
+
+*Hash Differences*
+Difference between images 01 and 02: 0.0%
+Difference between images 02 and 03: 17.5%
+Difference between images 03 and 04: 0.0%
+Difference between images 04 and 05: 36.75%
+Difference between images 05 and 06: 0.0%
+Difference between images 06 and 07: 57.75%
+Difference between images 07 and 08: 1.75%
+Difference between images 08 and 09: 82.25%
+Difference between images 09 and 10: 0.0%
+Difference between images 10 and 11: 57.75%
+Difference between images 11 and 12: 3.5%
+Difference between images 12 and 13: 52.5%
+Difference between images 13 and 14: 0.0%
+Difference between images 14 and 15: 63.0%
+Difference between images 15 and 16: 0.0%
+
+*Possible Duplicates*
+['./images/tests/color_shift/test 01.jpg', './images/tests/color_shift/test 02.jpg']
+['./images/tests/color_shift/test 03.jpg', './images/tests/color_shift/test 04.jpg']
+['./images/tests/color_shift/test 05.jpg', './images/tests/color_shift/test 06.jpg']
+['./images/tests/color_shift/test 07.jpg', './images/tests/color_shift/test 08.jpg']
+['./images/tests/color_shift/test 09.jpg', './images/tests/color_shift/test 10.jpg']
+['./images/tests/color_shift/test 11.jpg', './images/tests/color_shift/test 12.jpg']
+['./images/tests/color_shift/test 13.jpg', './images/tests/color_shift/test 14.jpg']
