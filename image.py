@@ -10,6 +10,7 @@ class analyze:
         self.image_path = path
         self.scene_threshold = 15
         self.duplicate_threshold = 15
+        self.blur_threshold = 100
 
         self._get_dir_contents(self.image_path)
 
@@ -88,7 +89,7 @@ class analyze:
     def detect_blur(self, threshold = None):
         #Process Set Arguments
         if (not(threshold is None)):
-            self.duplicate_threshold = threshold
+            self.blur_threshold = threshold
 
         #Initalize Blurred Images Array
         blurred_images = []
