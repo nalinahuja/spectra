@@ -9,7 +9,7 @@ class analyze:
     def __init__(self, path):
         self.image_path = path
         self.scene_threshold = 15
-        self.duplicate_threshold = 7.5
+        self.duplicate_threshold = 15
 
         self._get_dir_contents(self.image_path)
 
