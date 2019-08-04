@@ -7,13 +7,16 @@ _precision = 1.75
 
 class analyze:
     def __init__(self, path):
+        #Initialize Default Values
         self.image_path = path
         self.scene_threshold = 15
         self.duplicate_threshold = 15
         self.blur_threshold = 100
 
+        #Get Image Path Contents
         self._get_dir_contents(self.image_path)
 
+        #Process Image Data
         self._calculate_image_hashes()
         self._calculate_hash_differences()
 
