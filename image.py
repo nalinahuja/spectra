@@ -20,6 +20,8 @@ class analyze:
         self._calculate_image_hashes()
         self._calculate_hash_differences()
 
+    #End Object Constructor---------------------------------------------------------------------------------------------------------------------------
+
     def _get_dir_contents(self, path):
         #Initialize Image List
         self.image_list = []
@@ -31,6 +33,8 @@ class analyze:
 
         #Sort Image Paths by Number
         self.image_list.sort()
+
+    #End Util Fucntions-------------------------------------------------------------------------------------------------------------------------------
 
     def _calculate_image_hashes(self):
         #Initialize Hash List
@@ -47,6 +51,8 @@ class analyze:
         #Calculate Hash Differences
         for i in range(0, len(self.image_hashes) - 1):
             self.hash_diffs.append((self.image_hashes[i] - self.image_hashes[i + 1]) * _precision)
+
+    #End Image Functions------------------------------------------------------------------------------------------------------------------------------
 
     def detect_scenes(self, threshold = None):
         #Process Set Arguments
@@ -99,3 +105,5 @@ class analyze:
 
         #Return Blurred Images Array
         return blurred_images
+
+    #End Detection Functions--------------------------------------------------------------------------------------------------------------------------
