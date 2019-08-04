@@ -72,16 +72,15 @@ class analyze:
         scene = []
 
         #Determine Duplicates
-        for i in range(0, len(self.hash_diffs)):
-            if (self.hash_diffs[i] <= self.duplicate_threshold) and (len(scene) > 1):
+        for i in range(len(self.hash_diffs)):
+            if (self.hash_diffs[i] <= self.duplicate_threshold):
+                if (not(self.image_list[i] in scene)):
+                    scene.append(self.image_list[i])
+                if (not(self.image_list[i + 1] in scene)):
+                    scene.append(self.image_list[i + 1])
+            elif (len(scene) > 1):
                 duplicates.append(scene)
                 scene = []
-            else:
-                if (len(scene) == 0):
-                    scene.append(self.image_list[i])
-                    scene.append(self.image_list[i + 1])
-                else:
-                    scene.append(self.image_list[i + 1])
 
         #Return Duplicate Array
         return duplicates

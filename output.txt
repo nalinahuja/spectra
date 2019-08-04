@@ -1,4 +1,6 @@
 *18 scenes detected*
+*
+Hash Differences*
 Difference between images 01 and 02: 3.5%
 Difference between images 02 and 03: 57.75%
 Difference between images 03 and 04: 8.75%
@@ -26,3 +28,10 @@ Difference between images 24 and 25: 54.25%
 Difference between images 25 and 26: 40.25%
 Difference between images 26 and 27: 63.0%
 Difference between images 27 and 28: 38.5%
+
+*Possible Duplicates*
+['./images/tests/augmentation/test 01.jpg', './images/tests/augmentation/test 02.jpg']
+['./images/tests/augmentation/test 05.jpg', './images/tests/augmentation/test 06.jpg']
+['./images/tests/augmentation/test 07.jpg', './images/tests/augmentation/test 08.jpg', './images/tests/augmentation/test 09.jpg']
+['./images/tests/augmentation/test 10.jpg', './images/tests/augmentation/test 11.jpg']
+['./images/tests/augmentation/test 20.jpg', './images/tests/augmentation/test 21.jpg', './images/tests/augmentation/test 22.jpg']
