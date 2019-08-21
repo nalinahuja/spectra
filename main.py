@@ -19,3 +19,9 @@ print("\n*Possible Duplicates*")
 
 for scene in grp1.detect_duplicates():
     print(scene)
+
+#Detect Duplicates
+print("\n*Possible Blurry Images*")
+
+for image in grp1.detect_blur():
+    print(image)

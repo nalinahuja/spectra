@@ -12,7 +12,7 @@ class analyze:
         self.image_path = path
         self.scene_threshold = 15
         self.duplicate_threshold = 15
-        self.blur_threshold = 100
+        self.blur_threshold = 17.5
 
         #Get Image Path Contents
         self._get_dir_contents(self.image_path)
@@ -110,7 +110,7 @@ class analyze:
             image_variance = cv2.Laplacian(cv_gray_image, cv2.CV_64F).var()
 
             if (image_variance < self.blur_threshold):
-                blurred_images.append(image)
+                blurred_images.append({'loc': image, 'var': format(image_variance, '.3f')})
 
         #Return Blurred Images Array
         return blurred_images
