@@ -15,13 +15,13 @@ for hash in grp1.hash_diffs:
     cnt += 1
 
 #Print Duplicate Arrays
-print("\n*Possible Duplicates*")
+print("\n*Possible Duplicate Images*")
 
 for scene in grp1.detect_duplicates():
     print(scene)
 
 #Detect Duplicates
-print("\n*Possible Blurry Images*")
-
-for image in grp1.detect_blur():
-    print(image)
+if (not(len(grp1.detect_blur()) == 0)):
+    print("\n*Possible Blurry Images*")
+    for image in grp1.detect_blur():
+        print(image)
