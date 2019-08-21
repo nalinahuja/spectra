@@ -1,4 +1,5 @@
 import os
+import cv2
 import imagehash
 
 from PIL import Image
@@ -102,6 +103,14 @@ class analyze:
 
         #Initalize Blurred Images Array
         blurred_images = []
+
+        for image in self.image_list:
+            loaded_image = cv2.imread(image)
+            cv_gray_image = cv2.cvtColor(loaded_image, cv2.COLOR_BGR2GRAY)
+            image_variance = cv2.Laplacian(cv_gray_image, cv2.CV_64F).var()
+
+            if (image_variance < self.blur_threshold):
+                blurred_images.append(image)
 
         #Return Blurred Images Array
         return blurred_images
