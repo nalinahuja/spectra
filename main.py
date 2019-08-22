@@ -1,7 +1,7 @@
 import image
 
 #Analyze Images
-grp1 = image.analyze("./images/tests/blur")
+grp1 = image.analyze(".")
 
 #Print Scenes Detected
 print("*" + str(grp1.detect_scenes()) + " scenes detected*")
