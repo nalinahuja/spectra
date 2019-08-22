@@ -14,14 +14,13 @@ if (not(len(grp1.hash_diffs) == 0)):
         print("Difference between images {} and {}: {:02}%".format(cnt, cnt + 1, hash))
         cnt += 1
 
-#Print Duplicate Arrays
-
+#Print Duplicate Array
 if (not(len(grp1.detect_duplicates()) == 0)):
     print("\n*Possible Duplicate Images*")
     for scene in grp1.detect_duplicates():
         print(scene)
 
-#Detect Duplicates
+#Print Blur Array
 if (not(len(grp1.detect_blur()) == 0)):
     print("\n*Possible Blurry Images*")
     for image in grp1.detect_blur():
