@@ -1,24 +1,25 @@
 import image
 
 #Analyze Images
-grp1 = image.analyze("./images/tests/augmentation")
+grp1 = image.analyze("./images/tests/blur")
 
 #Print Scenes Detected
 print("*" + str(grp1.detect_scenes()) + " scenes detected*")
 
 #Print Hashing Values
-cnt =  1
-
-print("\n*Hash Differences*")
-for hash in grp1.hash_diffs:
-    print("Difference between images {} and {}: {:02}%".format(cnt, cnt + 1, hash))
-    cnt += 1
+if (not(len(grp1.hash_diffs) == 0)):
+    cnt =  1
+    print("\n*Hash Differences*")
+    for hash in grp1.hash_diffs:
+        print("Difference between images {} and {}: {:02}%".format(cnt, cnt + 1, hash))
+        cnt += 1
 
 #Print Duplicate Arrays
-print("\n*Possible Duplicate Images*")
 
-for scene in grp1.detect_duplicates():
-    print(scene)
+if (not(len(grp1.detect_duplicates()) == 0)):
+    print("\n*Possible Duplicate Images*")
+    for scene in grp1.detect_duplicates():
+        print(scene)
 
 #Detect Duplicates
 if (not(len(grp1.detect_blur()) == 0)):
