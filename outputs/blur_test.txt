@@ -1,0 +1,4 @@
+*1 scenes detected*
+
+*Possible Blurry Images*
+{'loc': './images/tests/blur/test 1.png', 'var': '273.720'}
