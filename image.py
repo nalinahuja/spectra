@@ -69,7 +69,7 @@ class analyze:
                 scenes += 1
 
         #Return Scene Count
-        return scenes
+        return scenes if (len(self.image_list) > 0) else 0
 
     def detect_duplicates(self, threshold = None):
         #Process Set Arguments
