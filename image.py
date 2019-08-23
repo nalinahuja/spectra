@@ -89,9 +89,12 @@ class analyze:
                     scene.append(self.image_list[i])
                 if (not(self.image_list[i + 1] in scene)):
                     scene.append(self.image_list[i + 1])
-            if (len(scene) > 1):
+            elif (len(scene) > 1):
                 duplicates.append(scene)
                 scene = []
+
+        if (len(scene) != 0):
+            duplicates.append(scene)
 
         #Return Duplicate Array
         return duplicates
