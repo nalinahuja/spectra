@@ -109,8 +109,8 @@ class analyze:
             cv_gray_image = cv2.cvtColor(loaded_image, cv2.COLOR_BGR2GRAY)
             image_variance = cv2.Laplacian(cv_gray_image, cv2.CV_64F).var()
 
-            # if (image_variance < self.blur_threshold):
-            blurred_images.append({'loc': image, 'var': format(image_variance, '.3f')})
+            if (image_variance < self.blur_threshold):
+                blurred_images.append({'loc': image, 'var': format(image_variance, '.3f')})
 
         #Return Blurred Images Array
         return blurred_images
