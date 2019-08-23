@@ -1,7 +1,8 @@
+import sys
 import image
 
 #Analyze Images
-grp1 = image.analyze("DIR HERE")
+grp1 = image.analyze(sys.argv[0])
 
 #Print Scenes Detected
 print("*" + str(grp1.detect_scenes()) + " scenes detected*")
