@@ -1,7 +1,7 @@
 import image
 
 #Analyze Images
-grp1 = image.analyze("./images/color_shift")
+grp1 = image.analyze("DIRECTORY HERE!")
 
 #Print Scenes Detected
 print("*" + str(grp1.detect_scenes()) + " scenes detected*")
