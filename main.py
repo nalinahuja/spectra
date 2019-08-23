@@ -1,7 +1,7 @@
 import image
 
 #Analyze Images
-grp1 = image.analyze(".")
+grp1 = image.analyze("../../Downloads")
 
 #Print Scenes Detected
 print("*" + str(grp1.detect_scenes()) + " scenes detected*")
