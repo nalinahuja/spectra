@@ -1,8 +1,9 @@
+import os
 import sys
 import image
 
 #Analyze Images
-grp1 = image.analyze(sys.argv[1])
+grp1 = image.analyze(os.path.normpath(sys.argv[1]))
 
 #Print Scenes Detected
 print("*" + str(grp1.detect_scenes()) + " scenes detected*")
