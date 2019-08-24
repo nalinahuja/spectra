@@ -29,4 +29,6 @@ try:
         for image in grp1.detect_blur():
             print(image)
 except IndexError:
-    print("ERROR: Please Indicate a Valid Directory!")
+    print("ERROR: Please Indicate a Directory!")
+except FileNotFoundError:
+    print("ERROR: Invalid Directory!")
