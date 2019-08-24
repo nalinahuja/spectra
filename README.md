@@ -1,7 +1,9 @@
 # Similarity
-Image processing algorithm to detect sequentially ordered duplicate images with scene detection as well as out of order blurred images. Is able to discern augmentation, color correction, and shallow depth of field as unique qualities to images.
+Similarity is an image processing algorithm to detect sequentially ordered duplicate images with scene detection as well as out of order blurred images. Is able to discern augmentation, color correction, and shallow depth of field as unique qualities to images.
 
-Supports jpg, png, and cr2 file formats.
+Supports JPG, PNG, and CR2 file formats.
+
+Updates to come: Automatic organization of images based on apparent scene, blur, and similarity.
 
 ## Install Dependencies
 
