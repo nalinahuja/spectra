@@ -1,7 +1,7 @@
 # Similarity
 Similarity is an image processing algorithm designed to detect scenes, similarity, and blur in sequentially ordered images and give organized suggestions to the user to delete these files that are deemed to be dispensable by the program.
 
-Supports JPG, PNG, and CR2 file formats.
+Supports JPG, JPEG, and PNG file formats.
 
 Pending Updates: Automatic organization of images based on apparent scene, blur, and similarity.
 

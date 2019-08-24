@@ -29,7 +29,7 @@ class analyze:
 
         #Store Image Paths
         for file in os.listdir(path):
-            if file.endswith((".jpg", ".png", ".jpeg", ".cr2")):
+            if file.endswith((".jpg", ".png", ".jpeg")):
                 self.image_list.append(os.path.join(path, file))
 
         #Sort Image Paths by Number
