@@ -3,7 +3,7 @@ Similarity is an image processing algorithm designed to detect scenes, similarit
 
 Supports JPG, PNG, and CR2 file formats.
 
-Updates to come: Automatic organization of images based on apparent scene, blur, and similarity.
+Pending Updates: Automatic organization of images based on apparent scene, blur, and similarity.
 
 ## Install Dependencies
 ```
