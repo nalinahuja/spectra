@@ -6,7 +6,6 @@ Supports JPG, PNG, and CR2 file formats.
 Updates to come: Automatic organization of images based on apparent scene, blur, and similarity.
 
 ## Install Dependencies
-
 ```
 #For Python 2 Users
 pip install cv2
@@ -18,7 +17,6 @@ pip3 install imagehash
 ```
 
 ## Usage
-
 ```
 #For Python 2 Users
 python main.py DIR
