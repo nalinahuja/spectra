@@ -1,5 +1,5 @@
-# Similarity
-Similarity is an image processing algorithm designed to detect scenes, similarity, and blur in sequentially ordered images and give organized suggestions to the user to delete these files that are deemed to be dispensable by the program.
+# Spectra
+Spectra is an image processing algorithm designed to detect scenes, similarity, and blur in sequentially ordered images and give organized suggestions to the user to delete these files that are deemed to be dispensable by the program.
 
 Automatic organization of images based on apparent scene, blur, and similarity to come soon.
 
