@@ -53,7 +53,7 @@ class analyze:
         for i in range(0, len(self.image_hashes) - 1):
             self.hash_diffs.append((self.image_hashes[i] - self.image_hashes[i + 1]) * _precision)
 
-    #End Image Functions------------------------------------------------------------------------------------------------------------------------------
+    #End Processing Functions-------------------------------------------------------------------------------------------------------------------------
 
     def detect_scenes(self, threshold = None):
         #Process Set Arguments
