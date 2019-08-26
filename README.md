@@ -1,7 +1,7 @@
 # Spectra
 Spectra is an image processing algorithm designed to detect scenes, similarity, and blur in sequentially ordered images and give suggestions to the user to review and perhaps delete these files that are deemed to be dispensable.
 
-Automatic organization of images based on image attributes coming soon.
+Automatic organization and labeling of images based on image attributes coming soon.
 
 Supports JPG, JPEG, and PNG file formats.
 
