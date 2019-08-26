@@ -19,8 +19,8 @@ pip3 install imagehash
 ## Usage
 ```
 #For Python 2 Users
-python main.py $PATH
+python analyze.py $PATH
 
 #For Python 3 Users
-python3 main.py $PATH
+python3 analyze.py $PATH
 ```
