@@ -59,8 +59,11 @@ if __name__ == "__main__":
     #Missing Param Catch
     except IndexError:
         no_error = False
+
+        #Format data_in
         format(data_in)
 
+        #Determine Param Count
         if (len(data_in) == 0):
             print("ERROR: Please Indicate a Directory!")
         elif (len(data_in) == 1):
@@ -74,9 +77,12 @@ if __name__ == "__main__":
     except FileNotFoundError:
         print("ERROR: Invalid Directory!")
 
+    #Complete Param List Analyze Call
     if (no_error):
+        #Format data_in
         format(data_in)
-        #Complete Param Analyze Call
+
+        #Call analyze Function
         analyze(data_in[0], scene_threshold = data_in[1], duplicate_threshold = data_in[2], blur_threshold = data_in[3])
 
 #End Main Function-------------------------------------------------------------------------------------------------------------------------------------
