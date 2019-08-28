@@ -65,7 +65,7 @@ if __name__ == "__main__":
 
         #Determine Param Count
         if (len(data_in) == 0):
-            print("ERROR: Please Indicate a Directory!")
+            print("ERROR: Please Indicate Valid a Directory!")
         elif (len(data_in) == 1):
             analyze(data_in[0])
         elif (len(data_in) == 2):
