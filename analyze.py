@@ -2,6 +2,8 @@ import os
 import sys
 import image
 
+#End Imports-------------------------------------------------------------------------------------------------------------------------------------------
+
 def analyze(dir, scene_threshold = None, duplicate_threshold = None, blur_threshold = None):
     #Global Assignment
     global image
@@ -23,17 +25,29 @@ def analyze(dir, scene_threshold = None, duplicate_threshold = None, blur_thresh
     #Print Duplicate Array
     if (not(len(image_grp.detect_duplicates(threshold = duplicate_threshold)) == 0)):
         print("\n*Possible Duplicate Images*")
-        for scene in image_grp.detect_duplicates():
+        for scene in image_grp.detect_duplicates(threshold = duplicate_threshold):
             print(scene)
 
     #Print Blur Array
     if (not(len(image_grp.detect_blur(threshold = blur_threshold)) == 0)):
         print("\n*Possible Blurry Images*")
-        for image in image_grp.detect_blur():
+        for image in image_grp.detect_blur(threshold = blur_threshold):
             print(image)
+
+#End Analyze Function----------------------------------------------------------------------------------------------------------------------------------
+
+def format(arr):
+    for i in range(len(arr)):
+        if (arr[i] == str("def")):
+            arr[i] = None
+        elif (i > 0):
+            arr[i] = int(arr[i])
+
+#End Util Function-------------------------------------------------------------------------------------------------------------------------------------
 
 if __name__ == "__main__":
     data_in = []
+    no_error = True
 
     #Param Ingest
     try:
@@ -44,6 +58,9 @@ if __name__ == "__main__":
 
     #Missing Param Catch
     except IndexError:
+        no_error = False
+        format(data_in)
+
         if (len(data_in) == 0):
             print("ERROR: Please Indicate a Directory!")
         elif (len(data_in) == 1):
@@ -57,5 +74,9 @@ if __name__ == "__main__":
     except FileNotFoundError:
         print("ERROR: Invalid Directory!")
 
-    #Complete Param Analyze Call
-    analyze(data_in[0], scene_threshold = data_in[1], duplicate_threshold = data_in[2], blur_threshold = data_in[3])
+    if (no_error):
+        format(data_in)
+        #Complete Param Analyze Call
+        analyze(data_in[0], scene_threshold = data_in[1], duplicate_threshold = data_in[2], blur_threshold = data_in[3])
+
+#End Main Function-------------------------------------------------------------------------------------------------------------------------------------
