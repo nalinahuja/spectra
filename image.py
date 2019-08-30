@@ -6,7 +6,7 @@ from PIL import Image
 
 _precision = 1.75
 
-class analyze:
+class process:
     def __init__(self, path):
         #Initialize Default Values
         self.image_path = path

@@ -9,7 +9,7 @@ def analyze(dir, scene_threshold = None, duplicate_threshold = None, blur_thresh
     global image
 
     #Analyze Images
-    image_grp = image.analyze(os.path.normpath(dir))
+    image_grp = image.process(os.path.normpath(dir))
 
     #Print Scenes Detected
     print("*" + str(image_grp.detect_scenes(threshold = scene_threshold)) + " scenes detected*")
