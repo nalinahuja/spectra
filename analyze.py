@@ -56,6 +56,10 @@ if __name__ == "__main__":
         data_in.append(sys.argv[3])
         data_in.append(sys.argv[4])
 
+    #Invlaid File Location Catch
+    except FileNotFoundError:
+        print("ERROR: Invalid Directory!")
+
     #Missing Param Catch
     except IndexError:
         no_error = False
@@ -72,10 +76,6 @@ if __name__ == "__main__":
             analyze(data_in[0], scene_threshold = data_in[1])
         elif (len(data_in) == 3):
             analyze(data_in[0], scene_threshold = data_in[1], duplicate_threshold = data_in[2])
-
-    #Invlaid File Location Catch
-    except FileNotFoundError:
-        print("ERROR: Invalid Directory!")
 
     #Complete Param List Analyze Call
     if (no_error):
