@@ -6,6 +6,9 @@ Automatic organization and labeling of images based on image attributes coming s
 Supports JPG, JPEG, and PNG file formats.
 
 ## Install Dependencies
+
+Please either run these commands or run  the install.sh script included with the repository.
+
 ```
 #For Python 2 Users
 pip install cv2
