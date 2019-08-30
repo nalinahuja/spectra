@@ -7,23 +7,13 @@ Supports JPG, JPEG, and PNG file formats.
 
 ## Install Dependencies
 
-Please either run the below commands or run the [install.sh](https://github.com/nalinahuja22/spectra/blob/master/install.sh) script included within the repository.
-
-```
-#For Python 2 Users
-pip install cv2
-pip install imagehash
-
-#For Python 3 Users
-pip3 install cv2
-pip3 install imagehash
-```
+Please run the [install.sh](https://github.com/nalinahuja22/spectra/blob/master/install.sh) setup script included within the repository to install all the dependencies required by Spectra. The script will install cv2 and imagehash to your global python modules.
 
 ## Usage
 ```
 #For Python 2 Users
-python analyze.py $PATH
+python analyze.py $IMG_PATH
 
 #For Python 3 Users
-python3 analyze.py $PATH
+python3 analyze.py $IMG_PATH
 ```
