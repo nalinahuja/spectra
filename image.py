@@ -1,3 +1,5 @@
+#Developed by Nalin Ahuja, nalinahuja22
+
 import os
 import cv2
 import imagehash

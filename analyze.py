@@ -1,8 +1,8 @@
+#Developed by Nalin Ahuja, nalinahuja22
+
 import os
 import sys
 import image
-
-#End Imports-------------------------------------------------------------------------------------------------------------------------------------------
 
 def analyze(dir, scene_threshold = None, duplicate_threshold = None, blur_threshold = None):
     #Global Assignment
