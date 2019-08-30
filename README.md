@@ -7,7 +7,7 @@ Supports JPG, JPEG, and PNG file formats.
 
 ## Install Dependencies
 
-Please either run the below commands or run the install.sh [script](https://github.com/nalinahuja22/spectra/blob/master/install.sh) included within the repository.
+Please either run the below commands or run the [install.sh](https://github.com/nalinahuja22/spectra/blob/master/install.sh) script included within the repository.
 
 ```
 #For Python 2 Users
