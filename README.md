@@ -7,7 +7,7 @@ Supports JPG, JPEG, and PNG file formats.
 
 ## Install Dependencies
 
-Please run the [install.sh](https://github.com/nalinahuja22/spectra/blob/master/install.sh) setup script included within the repository to install all the dependencies required by Spectra. You **must** have a version of *pip* installed on your machine to successfully install the required dependencies.   
+Please run the [install.sh](https://github.com/nalinahuja22/spectra/blob/master/install.sh) setup script included within the repository to install all the dependencies required by Spectra. You **must** have a version of **pip** installed on your machine to successfully install the required dependencies.   
 
 The script will install cv2 and imagehash to your global python modules.
 
