@@ -5,6 +5,7 @@ import cv2
 import imagehash
 
 from PIL import Image
+from PIL import ImageStat
 
 _precision = 1.75
 
@@ -15,6 +16,7 @@ class process:
         self.scene_threshold = 15
         self.duplicate_threshold = 15
         self.blur_threshold = 17.5
+        self.brightness_threshold = 20
 
         #Get Image Path Contents
         self._get_dir_contents(self.image_path)
