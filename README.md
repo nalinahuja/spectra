@@ -3,7 +3,7 @@ Spectra is an image processing algorithm designed to detect scenes, similarity, 
 
 Automatic organization and labeling of images based on image attributes coming soon.
 
-Supports JPG, JPEG, and PNG file formats.
+Supports JPG, JPEG, TIFF, and PNG file formats.
 
 ## Install Dependencies
 

@@ -25,7 +25,7 @@ def brightness(im_file):
     return stat.mean[0]
 
 if __name__ == "__main__":
-    image_path = "."
+    image_path = "./Images"
 
     for image in get_dir_contents(image_path):
         loaded_image = cv2.imread(image)

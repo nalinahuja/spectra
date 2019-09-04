@@ -1,10 +1,30 @@
 import cv2
-from PIL import Image
+from PIL import Image, ImageStat
 
-img = cv2.imread('./IMG_0294.JPG')
-new_image = cv2.convertScaleAbs(img, alpha = 4, beta = 10)
+def brightness(im_file):
+    im = Image.open(im_file).convert('L')
+    stat = ImageStat.Stat(im)
+    return stat.mean[0]
 
-cv2.imwrite("./image_processeda4b10.jpg", new_image)
+if __name__ == "__main__":
+    image = "./Images/IMG_0294.JPG"
+    loaded_image = cv2.imread(image)
+
+    cv_gray_image = cv2.cvtColor(loaded_image, cv2.COLOR_BGR2GRAY)
+    image_variance = cv2.Laplacian(cv_gray_image, cv2.CV_64F).var()
+    print("BEFORE: " + str(image) + " - Brightness: " + str(brightness(image)) + " - Blur: " + str(image_variance))
+
+    new_image = cv2.convertScaleAbs(loaded_image, alpha = 4, beta = 10)
+
+    cv2.imwrite("./new_image.jpg", new_image)
+
+    image = "./new_image.jpg"
+    loaded_image = cv2.imread("./new_image.jpg")
+
+    cv_gray_image = cv2.cvtColor(loaded_image, cv2.COLOR_BGR2GRAY)
+    image_variance = cv2.Laplacian(cv_gray_image, cv2.CV_64F).var()
+    print("AFTER: " + str(image) + " - Brightness: " + str(brightness(image)) + " - Blur: " + str(image_variance))2
+
 
 #alpha is brightness, beta is contrast
 
@@ -15,3 +35,6 @@ cv2.imwrite("./image_processeda4b10.jpg", new_image)
 # ./image_processeda4b10.jpg - Brightness: 145.62167608176512 - Blur: 56.2209674686685
 # ./image_processeda4b35.jpg - Brightness: 159.5903022811464 - Blur: 51.01872726160844
 # ./image_processeda4b50.jpg - Brightness: 167.8679132797318 - Blur: 48.14078853028855
+
+# BEFORE: ./test.png - Brightness: 110.00176775359725 - Blur: 3.8364565832491215
+# AFTER: ./new_image.jpg - Brightness: 218.32619953110458 - Blur: 17.39530490706806

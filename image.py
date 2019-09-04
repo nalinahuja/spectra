@@ -116,6 +116,10 @@ class process:
             cv_gray_image = cv2.cvtColor(loaded_image, cv2.COLOR_BGR2GRAY)
             image_variance = cv2.Laplacian(cv_gray_image, cv2.CV_64F).var()
 
+            im = Image.open(im_file).convert('L')
+            stat = ImageStat.Stat(im)
+            return stat.mean[0]
+
             if (image_variance < self.blur_threshold):
                 blurred_images.append(image)
 
