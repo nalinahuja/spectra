@@ -7,24 +7,24 @@ def brightness(im_file):
     return stat.mean[0]
 
 if __name__ == "__main__":
-    image = "./Images/IMG_0294.JPG"
+    image = "./../Images/alt/IMG_0340.JPG"
     loaded_image = cv2.imread(image)
 
     cv_gray_image = cv2.cvtColor(loaded_image, cv2.COLOR_BGR2GRAY)
     image_variance = cv2.Laplacian(cv_gray_image, cv2.CV_64F).var()
     print("BEFORE: " + str(image) + " - Brightness: " + str(brightness(image)) + " - Blur: " + str(image_variance))
 
-    new_image = cv2.convertScaleAbs(loaded_image, alpha = 4, beta = 10)
+    new_image = cv2.convertScaleAbs(loaded_image, alpha = 1, beta = -100)
 
+    cv2.imwrite("./edges.jpg", cv2.Laplacian(cv2.cvtColor(new_image, cv2.COLOR_BGR2GRAY), cv2.CV_64F))
     cv2.imwrite("./new_image.jpg", new_image)
 
     image = "./new_image.jpg"
-    loaded_image = cv2.imread("./new_image.jpg")
+    loaded_image = cv2.imread(image)
 
     cv_gray_image = cv2.cvtColor(loaded_image, cv2.COLOR_BGR2GRAY)
     image_variance = cv2.Laplacian(cv_gray_image, cv2.CV_64F).var()
-    print("AFTER: " + str(image) + " - Brightness: " + str(brightness(image)) + " - Blur: " + str(image_variance))2
-
+    print("AFTER: " + str(image) + " - Brightness: " + str(brightness(image)) + " - Blur: " + str(image_variance))
 
 #alpha is brightness, beta is contrast
 

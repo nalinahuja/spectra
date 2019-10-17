@@ -4,8 +4,7 @@ import os
 import cv2
 import imagehash
 
-from PIL import Image
-from PIL import ImageStat
+from PIL import Image, ImageStat
 
 _precision = 1.75
 
@@ -116,12 +115,14 @@ class process:
             cv_gray_image = cv2.cvtColor(loaded_image, cv2.COLOR_BGR2GRAY)
             image_variance = cv2.Laplacian(cv_gray_image, cv2.CV_64F).var()
 
-            im = Image.open(im_file).convert('L')
-            stat = ImageStat.Stat(im)
-            return stat.mean[0]
+            print(image + " : " + str(image_variance))
 
-            if (image_variance < self.blur_threshold):
-                blurred_images.append(image)
+            # im = Image.open(image).convert('L')
+            # stat = ImageStat.Stat(im)
+            # stat.mean[0]
+
+            # if (image_variance < self.blur_threshold):
+            # blurred_images.append(image)
 
         #Return Blurred Images Array
         return blurred_images
