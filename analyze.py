@@ -22,8 +22,6 @@ def analyze(args):
             print("Difference between images {} and {}: {:02}%".format(cnt, cnt + 1, hash))
             cnt += 1
 
-    image_grp._organize_images()
-
     # #Print Duplicates Array
     # duplicates = image_grp.image_scenes
     #

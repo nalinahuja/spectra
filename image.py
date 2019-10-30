@@ -40,6 +40,7 @@ class process:
 
         #Analyze Image Data
         self._detect_scenes()
+        self._detect_duplicates()
 
     #End Object Constructor---------------------------------------------------------------------------------------------------------------------------
 
@@ -108,51 +109,36 @@ class process:
 
             if (not(self.image_list[curr_image] in scene) and curr_image != len(self.image_list)):
                 scene.append(self.image_list[curr_image])
-            self.image_scenes.append(scene)
+            if (len(scene) != 0):
+                self.image_scenes.append(scene)
         else:
             print("ERROR: No Image Differences Found to Process")
 
-    def _organize_images(self):
-        if (self.image_scenes != None):
-            for i in range(len(self.image_scenes)):
-                os.mkdir(self.image_path + _fslash + "scene{}".format(i + 1))
-                for j in range(len(self.image_scenes[i])):
-                    try:
-                        image_directory = (self.image_scenes[i][j]).split(_fslash)
-                        os.rename(os.path.normpath(self.image_scenes[i][j]), os.path.normpath(image_directory[0] + _fslash + "scene{}".format(i + 1) + _fslash + image_directory[1]))
-                    except:
-                        pass
-        else:
-            print("ERROR: No Scenes Found to Analyze")
+    #End Scene Function-------------------------------------------------------------------------------------------------------------------------------
 
+    def _detect_duplicates(self):
+        #Initialize Duplicate Array
+        duplicates = []
 
-    # def detect_duplicates(self, threshold = None):
-    #     #Process Set Arguments
-    #     if (not(threshold is None)):
-    #         self.duplicate_threshold = threshold
-    #
-    #     #Initialize Duplicate Array
-    #     duplicates = []
-    #
-    #     #Initialize Scene Array
-    #     scene = []
-    #
-    #     #Determine Duplicates
-    #     for i in range(len(self.hash_diffs)):
-    #         if (self.hash_diffs[i] <= self.duplicate_threshold):
-    #             if (not(self.image_list[i] in scene)):
-    #                 scene.append(self.image_list[i])
-    #             if (not(self.image_list[i + 1] in scene)):
-    #                 scene.append(self.image_list[i + 1])
-    #         elif (len(scene) > 1):
-    #             duplicates.append(scene)
-    #             scene = []
-    #
-    #     if (len(scene) != 0):
-    #         duplicates.append(scene)
-    #
-    #     #Return Duplicate Array
-    #     return duplicates
+        #Initialize Scene Array
+        scene = []
+
+        #Determine Duplicates
+        for i in range(len(self.hash_diffs)):
+            if (self.hash_diffs[i] <= self.duplicate_threshold):
+                if (not(self.image_list[i] in scene) and not(self.image_list[i + 1] in scene)):
+                    scene.extend([self.image_list[i], self.image_list[i + 1]])
+            elif (len(scene) > 1):
+                duplicates.append(scene)
+                scene = []
+
+        if (len(scene) != 0):
+            duplicates.append(scene)
+
+        #Return Duplicate Array
+        return duplicates
+
+    #End Duplicate Function---------------------------------------------------------------------------------------------------------------------------
 
     # def detect_blur(self, threshold = None):
     #     #Process Set Arguments
@@ -179,4 +165,27 @@ class process:
     #     #Return Blurred Images Array
     #     return blurred_images
 
-    #End Detection Functions--------------------------------------------------------------------------------------------------------------------------
+    #End Blur Function--------------------------------------------------------------------------------------------------------------------------------
+
+    def organize_images(self):
+        if (self.image_scenes != None):
+            #Iterate over image_scenes array
+            for i in range(len(self.image_scenes)):
+                os.mkdir(self.image_path + _fslash + "Scene_{}".format(i + 1))
+                for j in range(len(self.image_scenes[i])):
+                    try:
+                        #Get Image Directory Contents
+                        image_directory = self.image_scenes[i][j].split(_fslash)
+
+                        #Generate Source and Destination Paths
+                        src = os.path.normpath(self.image_scenes[i][j])
+                        dest = os.path.normpath(image_directory[0] + _fslash + "scene{}".format(i + 1) + _fslash + image_directory[1])
+
+                        #Move Files to Scene Folders
+                        os.rename(src, dest)
+                    except:
+                        pass
+        else:
+            print("ERROR: No Scenes Found to Analyze")
+
+    #End User Functions-------------------------------------------------------------------------------------------------------------------------------

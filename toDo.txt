@@ -1,5 +1,3 @@
-- Complete Scene Detection
-- Complete Scene Categorizing
 
 - Complete Blur Detection
 - Complete Deletion Recommender
