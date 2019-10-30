@@ -8,11 +8,11 @@ def analyze(args):
     #Global Assignment
     global image
 
-    #Analyze Images
+    #Analyze Directory
     image_grp = image.process(args)
 
     #Print Scenes Detected
-    print("*" + str(image_grp.detect_scenes()) + " scenes detected*")
+    print("*" + str(len(image_grp.image_scenes)) + " scenes detected*")
 
     #Print Hashing Values
     if (not(len(image_grp.hash_diffs) == 0)):
@@ -22,28 +22,29 @@ def analyze(args):
             print("Difference between images {} and {}: {:02}%".format(cnt, cnt + 1, hash))
             cnt += 1
 
-    #Print Duplicates Array
-    duplicates = image_grp.detect_duplicates()
+    image_grp._organize_images()
 
-    if (not(len(duplicates) == 0)):
-        print("\n*Possible Duplicate Images*")
-        for scene in duplicates:
-            print(scene)
+    # #Print Duplicates Array
+    # duplicates = image_grp.image_scenes
+    #
+    # if (not(len(duplicates) == 0)):
+    #     print("\n*Possible Duplicate Images*")
+    #     for scene in duplicates:
+    #         print(scene)
 
-    #Print Blur Array
-    blurred = image_grp.detect_blur()
-
-    if (not(len(blurred) == 0)):
-        print("\n*Possible Blurry Images*")
-        for image in blurred:
-            print(image)
+    # #Print Blur Array
+    # blurred = image_grp.detect_blur()
+    #
+    # if (not(len(blurred) == 0)):
+    #     print("\n*Possible Blurry Images*")
+    #     for image in blurred:
+    #         print(image)
 
 #End Analyze Function----------------------------------------------------------------------------------------------------------------------------------
 
 def format(args):
     while (len(args) < 4):
         args.append(None)
-
     return args
 
 #End Util Function-------------------------------------------------------------------------------------------------------------------------------------
@@ -57,6 +58,6 @@ if __name__ == "__main__":
         else:
             analyze(format(args))
     except FileNotFoundError:
-        print("ERROR: File Directory Not Found")
+        print("ERROR: Directory Error")
 
 #End Main Function-------------------------------------------------------------------------------------------------------------------------------------
