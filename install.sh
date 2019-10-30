@@ -17,9 +17,9 @@ then
   pip install imagehash
 elif [ $version == 3.x ]
 then
-  echo -e "\nInstalling Python Dependencies..."
+  echo -e "\nInstalling Python3 Dependencies..."
   pip3 install cv2
   pip3 install imagehash
 fi
 
-echo -e "\nSuccessfully Installed Required Packages and Dependencies!"
+echo -e "\nSuccessfully Installed Imagehash and cv2!"
