@@ -9,18 +9,26 @@ from PIL import Image, ImageStat
 _precision = 1.75
 
 class process:
-    def __init__(self, path):
+    def __init__(self, args):
         #Initialize Default Values
-        self.image_path = path
-        self.scene_threshold = 15
-        self.duplicate_threshold = 15
-        self.blur_threshold = 17.5
-        self.brightness_threshold = 20
+        self.image_path = os.path.normpath(args[0])
+        assert(self.image_path != None)
+
+        #Define Image Data Lists
+        self.image_list = None
+        assert(self.image_list == None)
+        self.image_hashes = None
+        assert(self.image_hashes == None)
+
+        #Image Attribute Values
+        self.scene_threshold = 15 if args[1] == None else args[1]
+        self.dupli_threshold = 15 if args[2] == None else args[2]
+        self.sharp_threshold = 15 if args[3] == None else args[3]
 
         #Get Image Path Contents
         self._get_dir_contents(self.image_path)
 
-        #Process Image Data
+        #Calculate Image Data
         self._calculate_image_hashes()
         self._calculate_hash_differences()
 
@@ -35,44 +43,74 @@ class process:
             if file.endswith((".jpg", ".png", ".jpeg", ".JPG", ".JPEG", ".PNG")):
                 self.image_list.append(os.path.join(path, file))
 
-        #Sort Image Paths by Number
+        #Sort Image Paths in Lexicographical Order
         self.image_list.sort()
 
     #End Util Fucntions-------------------------------------------------------------------------------------------------------------------------------
 
     def _calculate_image_hashes(self):
-        #Initialize Hash List
-        self.image_hashes = []
+        if (self.image_list != None):
+            #Initialize Hash List
+            self.image_hashes = []
 
-        #Calculate Hash Values
-        for image in self.image_list:
-            self.image_hashes.append(imagehash.average_hash(Image.open(image)))
+            #Calculate Hash Values
+            for image in self.image_list:
+                self.image_hashes.append(imagehash.average_hash(Image.open(image)))
+        else:
+            print("ERROR: No Images Found to Process")
 
     def _calculate_hash_differences(self):
-        #Initialize Diff List
-        self.hash_diffs = []
+        if (self.hash_diffs != None):
+            #Initialize Diff List
+            self.hash_diffs = []
 
-        #Calculate Hash Differences
-        for i in range(0, len(self.image_hashes) - 1):
-            self.hash_diffs.append((self.image_hashes[i] - self.image_hashes[i + 1]) * _precision)
+            #Calculate Hash Differences
+            for i in range(len(self.image_hashes) - 1):
+                self.hash_diffs.append((self.image_hashes[i + 1] - self.image_hashes[i]) * _precision)
+        else:
+            print("ERROR: No Image Differences Found to Process")
 
     #End Processing Functions-------------------------------------------------------------------------------------------------------------------------
 
-    def detect_scenes(self, threshold = None):
-        #Process Set Arguments
-        if (not(threshold is None)):
-            self.scene_threshold = threshold
+    def detect_scenes(self):
+        if (self.hash_diffs != None):
+            #Initialize Scene Count
+            scenes = 1
 
-        #Initialize Scene Count
-        scenes = 1
+            #Determine Scenes
+            for diff in self.hash_diffs:
+                if (diff >= self.scene_threshold):
+                    scenes += 1
 
-        #Determine Scenes
-        for diff in self.hash_diffs:
-            if (diff >= self.scene_threshold):
-                scenes += 1
-
-        #Return Scene Count
+            #Return Scene Count
         return scenes if (len(self.image_list) > 0) else 0
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     def detect_duplicates(self, threshold = None):
         #Process Set Arguments
