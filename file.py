@@ -1,7 +1,7 @@
 import os
 
 _fslash = "/"
-_scene = "Scene_{}"
+_scene = "Scene {}"
 
 def normalize(path):
     return os.path.normpath(path)

@@ -28,7 +28,7 @@ class process:
         assert(self.image_duplicates == None)
 
         #Image Attribute Values
-        self.scene_threshold = 15 if args[1] == None else args[1]
+        self.scene_threshold = 40 if args[1] == None else args[1]
         self.dupli_threshold = 15 if args[2] == None else args[2]
         self.sharp_threshold = 15 if args[3] == None else args[3]
 
@@ -41,7 +41,7 @@ class process:
 
         #Analyze Image Data
         self._detect_scenes()
-        self._detect_duplicates()
+        # self._detect_duplicates()
 
     #End Object Constructor---------------------------------------------------------------------------------------------------------------------------
 
@@ -102,43 +102,55 @@ class process:
                     self.image_scenes.append(scene)
                     scene = []
                 else:
-                    if (not(self.image_list[curr_image] in scene) and not(self.image_list[curr_image + 1] in scene)):
-                        scene.extend([self.image_list[curr_image], self.image_list[curr_image + 1]])
+                    if (not(self.image_list[curr_image] in scene)):
+                        scene.append(self.image_list[curr_image])
+                    if (not(self.image_list[curr_image + 1] in scene)):
+                        scene.append(self.image_list[curr_image + 1])
 
                 curr_image += 1
 
             if (not(self.image_list[curr_image] in scene) and curr_image != len(self.image_list)):
                 scene.append(self.image_list[curr_image])
-            if (len(scene) != 0):
+            if (len(scene) > 0):
                 self.image_scenes.append(scene)
         else:
             print("ERROR: No Image Differences Found to Process")
 
     #End Scene Function-------------------------------------------------------------------------------------------------------------------------------
 
-    # def _detect_duplicates(self):
-    #     if (self.hash_diffs != None):
-    #         #Initialize Duplicate Array
-    #         self.image_duplicates = []
-    #
-    #         #Initialize Scene Array
-    #         duplicates = []
-    #
-    #         #Initialize Image Counter
-    #         curr_image = 0
-    #
-    #         #Determine Duplicates
-    #         for diff in self.hash_diffs:
-    #             if (diff <= self.duplicate_threshold):
-    #                 if (not(self.image_list[curr_image] in duplicates) and not(self.image_list[curr_image + 1] in duplicates)):
-    #                     duplicates.extend([self.image_list[curr_image], self.image_list[curr_image + 1]])
-    #             else:
-    #                 self.image_duplicates.append(duplicates)
-    #                 duplicates = []
-    #
-    #             curr_image += 1
-    #     else:
-    #         print("ERROR: No Image Differences Found to Process")
+    def _detect_duplicates(self):
+        if (self.hash_diffs != None):
+            #Initialize Duplicate Array
+            self.image_duplicates = []
+
+            #Initialize Scene Array
+            duplicates = []
+
+            #Initialize Image Counter
+            curr_image = 0
+
+            print(self.hash_diffs)
+
+            #Determine Duplicates
+            for diff in self.hash_diffs:
+                if (diff <= self.dupli_threshold):
+                    if (not(self.image_list[curr_image] in duplicates)):
+                        duplicates.append(self.image_list[curr_image])
+                    if (not(self.image_list[curr_image + 1] in duplicates)):
+                        duplicates.append(self.image_list[curr_image + 1])
+                else:
+                    if (len(duplicates) > 0):
+                        self.image_duplicates.append(duplicates)
+                        duplicates = []
+
+                curr_image += 1
+
+            if (not(self.image_list[curr_image] in duplicates) and curr_image != len(self.image_list)):
+                duplicates.append(self.image_list[curr_image])
+            if (len(duplicates) > 0):
+                self.image_scenes.append(duplicates)
+        else:
+            print("ERROR: No Image Differences Found to Process")
 
     #End Duplicate Function---------------------------------------------------------------------------------------------------------------------------
 
