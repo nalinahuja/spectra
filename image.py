@@ -2,18 +2,17 @@
 
 import os
 import cv2
-import shutil
+import file
 import imagehash
 
 from PIL import Image, ImageStat
 
 _precision = 1.75
-_fslash = "/"
 
 class process:
     def __init__(self, args):
         #Initialize Default Values
-        self.image_path = os.path.normpath(args[0])
+        self.image_path = file.normalize(args[0])
         assert(self.image_path != None)
 
         #Define Image Data Lists
@@ -25,6 +24,8 @@ class process:
         assert(self.hash_diffs == None)
         self.image_scenes = None
         assert(self.image_scenes == None)
+        self.image_duplicates = None
+        assert(self.image_duplicates == None)
 
         #Image Attribute Values
         self.scene_threshold = 15 if args[1] == None else args[1]
@@ -98,7 +99,6 @@ class process:
                 if (diff >= self.scene_threshold):
                     if (not(self.image_list[curr_image] in scene)):
                         scene.append(self.image_list[curr_image])
-
                     self.image_scenes.append(scene)
                     scene = []
                 else:
@@ -116,27 +116,29 @@ class process:
 
     #End Scene Function-------------------------------------------------------------------------------------------------------------------------------
 
-    def _detect_duplicates(self):
-        #Initialize Duplicate Array
-        duplicates = []
-
-        #Initialize Scene Array
-        scene = []
-
-        #Determine Duplicates
-        for i in range(len(self.hash_diffs)):
-            if (self.hash_diffs[i] <= self.duplicate_threshold):
-                if (not(self.image_list[i] in scene) and not(self.image_list[i + 1] in scene)):
-                    scene.extend([self.image_list[i], self.image_list[i + 1]])
-            elif (len(scene) > 1):
-                duplicates.append(scene)
-                scene = []
-
-        if (len(scene) != 0):
-            duplicates.append(scene)
-
-        #Return Duplicate Array
-        return duplicates
+    # def _detect_duplicates(self):
+    #     if (self.hash_diffs != None):
+    #         #Initialize Duplicate Array
+    #         self.image_duplicates = []
+    #
+    #         #Initialize Scene Array
+    #         duplicates = []
+    #
+    #         #Initialize Image Counter
+    #         curr_image = 0
+    #
+    #         #Determine Duplicates
+    #         for diff in self.hash_diffs:
+    #             if (diff <= self.duplicate_threshold):
+    #                 if (not(self.image_list[curr_image] in duplicates) and not(self.image_list[curr_image + 1] in duplicates)):
+    #                     duplicates.extend([self.image_list[curr_image], self.image_list[curr_image + 1]])
+    #             else:
+    #                 self.image_duplicates.append(duplicates)
+    #                 duplicates = []
+    #
+    #             curr_image += 1
+    #     else:
+    #         print("ERROR: No Image Differences Found to Process")
 
     #End Duplicate Function---------------------------------------------------------------------------------------------------------------------------
 
@@ -171,18 +173,18 @@ class process:
         if (self.image_scenes != None):
             #Iterate over image_scenes array
             for i in range(len(self.image_scenes)):
-                os.mkdir(self.image_path + _fslash + "Scene_{}".format(i + 1))
+                file.mkdir(file.formDir([self.image_path, file._scene.format(i + 1)]))
                 for j in range(len(self.image_scenes[i])):
                     try:
                         #Get Image Directory Contents
-                        image_directory = self.image_scenes[i][j].split(_fslash)
+                        image_directory = self.image_scenes[i][j].split(file._fslash)
 
                         #Generate Source and Destination Paths
-                        src = os.path.normpath(self.image_scenes[i][j])
-                        dest = os.path.normpath(image_directory[0] + _fslash + "scene{}".format(i + 1) + _fslash + image_directory[1])
+                        src = file.normalize(self.image_scenes[i][j])
+                        dest = file.normalize(file.formDir([image_directory[0], file._scene.format(i + 1), image_directory[1]]))
 
                         #Move Files to Scene Folders
-                        os.rename(src, dest)
+                        file.move(src, dest)
                     except:
                         pass
         else:

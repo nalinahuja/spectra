@@ -22,13 +22,13 @@ def analyze(args):
             print("Difference between images {} and {}: {:02}%".format(cnt, cnt + 1, hash))
             cnt += 1
 
-    # #Print Duplicates Array
-    # duplicates = image_grp.image_scenes
-    #
-    # if (not(len(duplicates) == 0)):
-    #     print("\n*Possible Duplicate Images*")
-    #     for scene in duplicates:
-    #         print(scene)
+    #Print Duplicates Array
+    duplicates = image_grp.image_scenes
+
+    if (not(len(duplicates) == 0)):
+        print("\n*Possible Duplicate Images*")
+        for scene in duplicates:
+            print(scene)
 
     # #Print Blur Array
     # blurred = image_grp.detect_blur()
