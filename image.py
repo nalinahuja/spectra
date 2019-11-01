@@ -81,7 +81,7 @@ class process:
         else:
             print("ERROR: No Image Hashes Found to Process")
 
-    #End Processing Functions-------------------------------------------------------------------------------------------------------------------------
+    #End Processing Functions---------------------------------------------------------------------------------------------------------------------------------------
 
     def _detect_scenes(self):
         if (self.hash_diffs != None):
@@ -109,14 +109,14 @@ class process:
 
                 curr_image += 1
 
-            if (not(self.image_list[curr_image] in scene) and curr_image != len(self.image_list)):
+            if (curr_image < len(self.image_list) and not(self.image_list[curr_image] in scene)):
                 scene.append(self.image_list[curr_image])
             if (len(scene) > 0):
                 self.image_scenes.append(scene)
         else:
             print("ERROR: No Image Differences Found to Process")
 
-    #End Scene Function-------------------------------------------------------------------------------------------------------------------------------
+    #End Scene Function---------------------------------------------------------------------------------------------------------------------------------------------
 
     def _detect_duplicates(self):
         if (self.hash_diffs != None):
@@ -179,7 +179,7 @@ class process:
     #     #Return Blurred Images Array
     #     return blurred_images
 
-    #End Blur Function--------------------------------------------------------------------------------------------------------------------------------
+    #End Blur Function---------------------------------------------------------------------------------------------------------------------------------------------
 
     def organize_images(self):
         if (self.image_scenes != None):
@@ -202,4 +202,4 @@ class process:
         else:
             print("ERROR: No Scenes Found to Analyze")
 
-    #End User Functions-------------------------------------------------------------------------------------------------------------------------------
+    #End User Functions---------------------------------------------------------------------------------------------------------------------------------------------
