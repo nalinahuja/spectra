@@ -17,15 +17,10 @@ class process:
 
         #Define Image Data Lists
         self.image_list = None
-        assert(self.image_list == None)
         self.image_hashes = None
-        assert(self.image_hashes == None)
         self.hash_diffs = None
-        assert(self.hash_diffs == None)
         self.image_scenes = None
-        assert(self.image_scenes == None)
         self.image_duplicates = None
-        assert(self.image_duplicates == None)
 
         #Image Attribute Values
         self.scene_threshold = 40 if args[1] == None else args[1]
