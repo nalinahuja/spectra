@@ -1,6 +1,5 @@
 #Developed by Nalin Ahuja, nalinahuja22
 
-import os
 import sys
 import image
 
@@ -11,27 +10,22 @@ def analyze(args):
     #Analyze Directory
     image_grp = image.process(args)
 
-    #Print Scenes Detected
-    print("*" + str(len(image_grp.image_scenes)) + " scenes detected*")
+    # #Print Scenes Detected
+    # print("*" + str(len(image_grp.image_scenes)) + " scenes detected*")
 
-    #Print Hashing Values
-    if (not(len(image_grp.hash_diffs) == 0)):
-        cnt =  1
-        print("\n*Hash Differences*")
-        for hash in image_grp.hash_diffs:
-            print("Difference between images {} and {}: {:02}%".format(cnt, cnt + 1, hash))
-            cnt += 1
-
-    #Print Duplicates Array
-    # duplicates = image_grp.image_duplicates
+    # #Print Hashing Values
+    # if (not(len(image_grp.hash_diffs) == 0)):
+    #     cnt =  1
+    #     print("\n*Hash Differences*")
+    #     for hash in image_grp.hash_diffs:
+    #         print("Difference between images {} and {}: {:02}%".format(cnt, cnt + 1, hash))
+    #         cnt += 1
     #
-    # if (not(len(duplicates) == 0)):
+    # #Print Duplicates Array
+    # if (not(len(image_grp.image_duplicates) == 0)):
     #     print("\n*Possible Duplicate Images*")
-    #     for scene in duplicates:
+    #     for scene in image_grp.image_duplicates:
     #         print(scene)
-
-    #Organize Images
-    image_grp.organize_images()
 
     # #Print Blur Array
     # blurred = image_grp.detect_blur()
@@ -40,6 +34,9 @@ def analyze(args):
     #     print("\n*Possible Blurry Images*")
     #     for image in blurred:
     #         print(image)
+
+    # #Organize Images
+    # image_grp.organize_images()
 
 #End Analyze Function------------------------------------------------------------------------------------------------------------------------------------------------
 

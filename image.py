@@ -1,8 +1,9 @@
 #Developed by Nalin Ahuja, nalinahuja22
 
 import os
-import cv2
 import file
+
+import cv2
 import imagehash
 
 from PIL import Image, ImageStat
@@ -11,9 +12,11 @@ _precision = 1.75
 
 class process:
     def __init__(self, args):
-        #Initialize Default Values
+        #Process Arguments
         self.image_path = file.normalize(args[0])
-        assert(self.image_path != None)
+        self.scene_threshold = 40 if args[1] == None else args[1]
+        self.dupli_threshold = 15 if args[2] == None else args[2]
+        self.sharp_threshold = 15 if args[3] == None else args[3]
 
         #Define Image Data Lists
         self.image_list = None
@@ -22,35 +25,45 @@ class process:
         self.image_scenes = None
         self.image_duplicates = None
 
-        #Image Attribute Values
-        self.scene_threshold = 40 if args[1] == None else args[1]
-        self.dupli_threshold = 15 if args[2] == None else args[2]
-        self.sharp_threshold = 15 if args[3] == None else args[3]
-
         #Get Directory Contents
-        self._get_dir_contents(self.image_path)
+        self._get_dir_contents()
 
         #Calculate Image Data
-        self._calculate_image_hashes()
-        self._calculate_hash_differences()
+        # self._calculate_image_hashes()
+        # self._calculate_hash_differences()
 
         #Analyze Image Data
-        self._detect_scenes()
+        # self._detect_blur()
+        # self._detect_scenes()
         # self._detect_duplicates()
 
     #End Object Constructor----------------------------------------------------------------------------------------------------------------------------------------
 
-    def _get_dir_contents(self, path):
-        #Initialize Image List
-        self.image_list = []
+    def _get_dir_contents(self):
+        if (self.image_path != None):
+            #Set Global Scope
+            global file
 
-        #Store Image Paths
-        for file in os.listdir(path):
-            if file.endswith((".jpg", ".png", ".jpeg", ".JPG", ".JPEG", ".PNG")):
-                self.image_list.append(os.path.join(path, file))
+            #Initialize Image Paths List
+            self.image_list = []
 
-        #Sort Image Paths in Lexicographical Order
-        self.image_list.sort()
+            #Normalize and Store Image Paths
+            for path, subdirs, files in os.walk(self.image_path):
+                for file_name in files:
+                    if (file_name.endswith((".jpg", ".jpeg", ".png", ".JPG", ".JPEG", ".PNG", ".CR2"))):
+                        image_data = {'dir': os.path.realpath(path), 'file_name': file_name, 'path': os.path.join(path, file_name)}
+                        if (self.image_path != image_data['dir']):
+                            file.move(image_data['path'], os.path.realpath("{}/{}".format(self.image_path, image_data['file_name'])))
+                        self.image_list.append(os.path.join(self.image_path, image_data['file_name']))
+
+            #Delete Empty Directories
+            for file in os.listdir(self.image_path):
+                print(str(os.path.isdir(str(os.path.realpath(file)))) + " " + os.path.realpath(file))
+
+            #Sort Image Paths in Lexicographical Order
+            self.image_list.sort()
+        else:
+            print("ERROR: Image Path is Invalid")
 
     #End Util Fucntions---------------------------------------------------------------------------------------------------------------------------------------------
 

@@ -1,6 +1,0 @@
-- On load, get all the images from the sub-directories, and move them to the indicated directory.
-- Sort via numbers
-
-- Re Scene
-- Re Duplicate
--
