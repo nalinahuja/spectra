@@ -58,7 +58,12 @@ class process:
 
             #Delete Empty Directories
             for file in os.listdir(self.image_path):
-                print(str(os.path.isdir(str(os.path.realpath(file)))) + " " + os.path.realpath(file))
+                normpath = "{}/{}".format(self.image_path, file)
+                if (os.path.isdir(normpath)):
+                    try:
+                        os.rmdir(normpath)
+                    except OSError:
+                        pass
 
             #Sort Image Paths in Lexicographical Order
             self.image_list.sort()
