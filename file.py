@@ -5,9 +5,6 @@ import os
 _fslash = "/"
 _scene = "Scene {}"
 
-def mkdir(dir):
-    os.mkdir(dir)
-
 def move(src, dest):
     os.rename(src, dest)
 

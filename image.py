@@ -25,17 +25,20 @@ class process:
         self.image_scenes = None
         self.image_duplicates = None
 
-        #Get Directory Contents
+        #Fetch Directory Contents
         self._get_dir_contents()
 
         #Calculate Image Data
-        # self._calculate_image_hashes()
-        # self._calculate_hash_differences()
+        self._calculate_image_hash_data()
 
         #Analyze Image Data
-        # self._detect_blur()
-        # self._detect_scenes()
+        self._detect_scenes()
+
         # self._detect_duplicates()
+        # self._detect_blur()
+
+        #Cleanup Image Directory
+        self.organize_directory()
 
     #End Object Constructor----------------------------------------------------------------------------------------------------------------------------------------
 
@@ -72,7 +75,7 @@ class process:
 
     #End Util Fucntions---------------------------------------------------------------------------------------------------------------------------------------------
 
-    def _calculate_image_hashes(self):
+    def _calculate_image_hash_data(self):
         if (self.image_list != None):
             #Initialize Hash List
             self.image_hashes = []
@@ -80,6 +83,10 @@ class process:
             #Calculate Hash Values
             for image in self.image_list:
                 self.image_hashes.append(imagehash.average_hash(Image.open(image)))
+            assert(self.image_hashes != None)
+
+            #Calculate Hash Differences
+            self._calculate_hash_differences()
         else:
             print("ERROR: No Images Found to Process")
 
@@ -91,6 +98,7 @@ class process:
             #Calculate Hash Differences
             for i in range(len(self.image_hashes) - 1):
                 self.hash_diffs.append((self.image_hashes[i + 1] - self.image_hashes[i]) * _precision)
+            assert(self.hash_diffs != None)
         else:
             print("ERROR: No Image Hashes Found to Process")
 
@@ -131,41 +139,39 @@ class process:
 
     #End Scene Function---------------------------------------------------------------------------------------------------------------------------------------------
 
-    def _detect_duplicates(self):
-        if (self.hash_diffs != None):
-            #Initialize Duplicate Array
-            self.image_duplicates = []
-
-            #Initialize Scene Array
-            duplicates = []
-
-            #Initialize Image Counter
-            curr_image = 0
-
-            print(self.hash_diffs)
-
-            #Determine Duplicates
-            for diff in self.hash_diffs:
-                if (diff <= self.dupli_threshold):
-                    if (not(self.image_list[curr_image] in duplicates)):
-                        duplicates.append(self.image_list[curr_image])
-                    if (not(self.image_list[curr_image + 1] in duplicates)):
-                        duplicates.append(self.image_list[curr_image + 1])
-                else:
-                    if (len(duplicates) > 0):
-                        self.image_duplicates.append(duplicates)
-                        duplicates = []
-
-                curr_image += 1
-
-            if (not(self.image_list[curr_image] in duplicates) and curr_image != len(self.image_list)):
-                duplicates.append(self.image_list[curr_image])
-            if (len(duplicates) > 0):
-                self.image_scenes.append(duplicates)
-        else:
-            print("ERROR: No Image Differences Found to Process")
-
-    #BUGGY
+    # def _detect_duplicates(self):
+    #     if (self.hash_diffs != None):
+    #         #Initialize Duplicate Array
+    #         self.image_duplicates = []
+    #
+    #         #Initialize Scene Array
+    #         duplicates = []
+    #
+    #         #Initialize Image Counter
+    #         curr_image = 0
+    #
+    #         print(self.hash_diffs)
+    #
+    #         #Determine Duplicates
+    #         for diff in self.hash_diffs:
+    #             if (diff <= self.dupli_threshold):
+    #                 if (not(self.image_list[curr_image] in duplicates)):
+    #                     duplicates.append(self.image_list[curr_image])
+    #                 if (not(self.image_list[curr_image + 1] in duplicates)):
+    #                     duplicates.append(self.image_list[curr_image + 1])
+    #             else:
+    #                 if (len(duplicates) > 0):
+    #                     self.image_duplicates.append(duplicates)
+    #                     duplicates = []
+    #
+    #             curr_image += 1
+    #
+    #         if (not(self.image_list[curr_image] in duplicates) and curr_image != len(self.image_list)):
+    #             duplicates.append(self.image_list[curr_image])
+    #         if (len(duplicates) > 0):
+    #             self.image_scenes.append(duplicates)
+    #     else:
+    #         print("ERROR: No Image Differences Found to Process")
 
     #End Duplicate Function----------------------------------------------------------------------------------------------------------------------------------------
 
@@ -196,25 +202,25 @@ class process:
 
     #End Blur Function---------------------------------------------------------------------------------------------------------------------------------------------
 
-    def organize_images(self):
-        if (self.image_scenes != None):
-            #Iterate over image_scenes array
-            for i in range(len(self.image_scenes)):
-                file.mkdir(file.formDir([self.image_path, file._scene.format(i + 1)]))
-                for j in range(len(self.image_scenes[i])):
-                    try:
-                        #Get Image Directory Contents
-                        image_directory = self.image_scenes[i][j].split(file._fslash)
-
-                        #Generate Source and Destination Paths
-                        src = file.normalize(self.image_scenes[i][j])
-                        dest = file.normalize(file.formDir([image_directory[0], file._scene.format(i + 1), image_directory[1]]))
-
-                        #Move Files to Scene Folders
-                        file.move(src, dest)
-                    except:
-                        pass
-        else:
-            print("ERROR: No Scenes Found to Analyze")
+    # def organize_directory(self):
+    #     if (self.image_scenes != None):
+    #         #Iterate over image_scenes array
+    #         for i in range(len(self.image_scenes)):
+    #             os.mkdir(file.formDir([self.image_path, file._scene.format(i + 1)]))
+    #             for j in range(len(self.image_scenes[i])):
+    #                 try:
+    #                     #Get Image Directory Contents
+    #                     image_directory = self.image_scenes[i][j].split(file._fslash)
+    #
+    #                     #Generate Source and Destination Paths
+    #                     src = file.normalize(self.image_scenes[i][j])
+    #                     dest = file.normalize(file.formDir([image_directory[0], file._scene.format(i + 1), image_directory[1]]))
+    #
+    #                     #Move Files to Scene Folders
+    #                     file.move(src, dest)
+    #                 except:
+    #                     pass
+    #     else:
+    #         print("ERROR: No Scenes Found to Analyze")
 
     #End User Functions--------------------------------------------------------------------------------------------------------------------------------------------
