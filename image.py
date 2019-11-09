@@ -20,7 +20,6 @@ class process:
 
         #Define Image Data Lists
         self.image_list = None
-        self.image_hashes = None
         self.hash_diffs = None
         self.image_scenes = None
         self.image_duplicates = None
@@ -29,16 +28,16 @@ class process:
         self._get_dir_contents()
 
         #Calculate Image Data
-        self._calculate_image_hash_data()
+        self._calculate_hash_differences()
 
         #Analyze Image Data
-        self._detect_scenes()
+        # self._detect_scenes()          #TODO
 
-        # self._detect_duplicates()
-        # self._detect_blur()
+        # self._detect_duplicates()      #TODO
+        # self._detect_blur()            #TODO
 
         #Cleanup Image Directory
-        self.organize_directory()
+        # self.organize_directory()      #TODO
 
     #End Object Constructor----------------------------------------------------------------------------------------------------------------------------------------
 
@@ -75,32 +74,23 @@ class process:
 
     #End Util Fucntions---------------------------------------------------------------------------------------------------------------------------------------------
 
-    def _calculate_image_hash_data(self):
+    def _calculate_hash_differences(self):
         if (self.image_list != None):
             #Initialize Hash List
-            self.image_hashes = []
+            image_hashes = []
 
             #Calculate Hash Values
             for image in self.image_list:
-                self.image_hashes.append(imagehash.average_hash(Image.open(image)))
-            assert(self.image_hashes != None)
+                image_hashes.append(imagehash.average_hash(Image.open(image)))
 
-            #Calculate Hash Differences
-            self._calculate_hash_differences()
-        else:
-            print("ERROR: No Images Found to Process")
-
-    def _calculate_hash_differences(self):
-        if (self.image_hashes != None):
             #Initialize Diff List
             self.hash_diffs = []
 
             #Calculate Hash Differences
             for i in range(len(self.image_hashes) - 1):
                 self.hash_diffs.append((self.image_hashes[i + 1] - self.image_hashes[i]) * _precision)
-            assert(self.hash_diffs != None)
         else:
-            print("ERROR: No Image Hashes Found to Process")
+            print("ERROR: No Images Found to Process")
 
     #End Processing Functions---------------------------------------------------------------------------------------------------------------------------------------
 
