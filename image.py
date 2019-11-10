@@ -14,7 +14,7 @@ class process:
     def __init__(self, args):
         #Process Arguments
         self.image_path = file.normalize(args[0])
-        self.scene_threshold = 40 if args[1] == None else args[1]
+        self.scene_threshold = 45 if args[1] == None else args[1]
         self.dupli_threshold = 15 if args[2] == None else args[2]
         self.sharp_threshold = 15 if args[3] == None else args[3]
 
@@ -32,9 +32,6 @@ class process:
 
         #Analyze Image Data
         self._detect_scenes()
-
-        print(self.image_scenes)
-
         # self._detect_duplicates()      #TODO
         # self._detect_blur()            #TODO
 
@@ -48,7 +45,7 @@ class process:
             #Set Global Scope
             global file
 
-            #Declare Process Counter
+            #Declare Subroutine
             print("Loaded Images From ./{}".format(self.image_path))
 
             #Initialize Image Paths List
@@ -93,12 +90,16 @@ class process:
                 image_hashes.append(imagehash.average_hash(Image.open(image)))
                 cnt += 1
 
-            #Initialize Diff List
+            #Declare Subroutine
+            print("Processed Images From ./{}".format(self.image_path))
+
+            #Initialize Diff Listx
             self.hash_diffs = []
 
             #Calculate Hash Differences
             for i in range(len(image_hashes) - 1):
                 self.hash_diffs.append((image_hashes[i + 1] - image_hashes[i]) * _precision)
+
         else:
             print("ERROR: No Images Found to Process")
 
