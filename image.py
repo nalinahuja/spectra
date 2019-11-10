@@ -52,7 +52,7 @@ class process:
         #Analyze Image Data
         self._detect_scenes()
         self._detect_duplicates()
-        self._detect_blur()
+        # self._detect_blur()
 
         #Cleanup Image Directory
         self.organize_directory()
@@ -61,14 +61,11 @@ class process:
 
     def _get_dir_contents(self):
         if (self.image_path != None):
-            #Set Global Scope
-            global file
-
-            #Declare Subroutine
-            print("Loaded Images From ./{}".format(self.image_path))
-
             #Initialize Image Paths List
             self.image_list = []
+
+            #Declare Process Counter
+            cnt = 0
 
             #Normalize and Store Image Paths
             for path, subdirs, files in os.walk(self.image_path):
@@ -77,7 +74,9 @@ class process:
                         image_data = {'dir': os.path.realpath(path), 'file_name': file_name, 'path': os.path.join(path, file_name)}
                         if (self.image_path != image_data['dir']):
                             move(image_data['path'], os.path.realpath("{}/{}".format(self.image_path, image_data['file_name'])))
+                            print("Loaded {} Images - ./{}".format(cnt, self.image_path), end="\r")
                         self.image_list.append(os.path.join("./{}".format(self.image_path), image_data['file_name']))
+                        cnt += 1
 
             #Delete Empty Directories
             for file in os.listdir(self.image_path):
@@ -87,6 +86,9 @@ class process:
                         os.rmdir(normpath)
                     except OSError:
                         pass
+
+            #Declare Subroutine
+            print("Loaded All Images - ./{}".format(self.image_path))
 
             #Sort Image Paths in Lexicographical Order
             self.image_list.sort()
@@ -110,9 +112,9 @@ class process:
                 cnt += 1
 
             #Declare Subroutine
-            print("Processed Images From ./{}".format(self.image_path))
+            print("Processed All Images       ")
 
-            #Initialize Diff Listx
+            #Initialize Diff List
             self.hash_diffs = []
 
             #Calculate Hash Differences
@@ -207,9 +209,6 @@ class process:
 
     def organize_directory(self):
         if (self.image_scenes != None):
-            #Local Import
-            import file
-
             #Iterate over image_scenes array
             for i in range(len(self.image_scenes)):
                 os.mkdir(formDir([self.image_path, _scene.format(i + 1)]))
@@ -229,7 +228,7 @@ class process:
                         pass
 
             #Declare Subroutine
-            print("Organized Images In ./{}".format(self.image_path))
+            print("Organized All Images       ")
         else:
             print("ERROR: No Scenes Found to Analyze")
 
