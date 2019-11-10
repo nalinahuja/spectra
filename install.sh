@@ -13,13 +13,13 @@ fi
 if [ $version == 2.x ]
 then
   echo -e "\nInstalling Python Dependencies..."
-  pip install cv2
+  pip install opencv-python
   pip install imagehash
 elif [ $version == 3.x ]
 then
-  echo -e "\nInstalling Python Dependencies..."
-  pip3 install cv2
+  echo -e "\nInstalling Python3 Dependencies..."
+  pip3 install opencv-python
   pip3 install imagehash
 fi
 
-echo -e "\nSuccessfully Installed Required Packages and Dependencies!"
+echo -e "\nSuccessfully Installed Imagehash and cv2!"

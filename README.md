@@ -1,21 +1,20 @@
 # Spectra
-Spectra is an image processing algorithm designed to detect scenes, similarity, and blur in sequentially ordered images and give suggestions to the user to review and perhaps delete these files that are deemed to be dispensable.
+Spectra is an image processing algorithm designed to detect scenes, similarity, and blur in sequentially ordered images. The algorithm is also capable of sorting images based on scenes and give suggestions to the user to review and perhaps delete duplicate files.
 
-Automatic organization and labeling of images based on image attributes coming soon.
-
-Supports JPG, JPEG, TIFF, and PNG file formats.
+Supports JPG, JPEG, PNG, and TIFF file formats.
 
 ## Install Dependencies
 
-Please run the [install.sh](https://github.com/nalinahuja22/spectra/blob/master/install.sh) script included within the repository to install all the dependencies required by Spectra. You **must** have a version of pip installed on your machine to ensure the success of the setup script.   
+Please run the [install.sh](https://github.com/nalinahuja22/spectra/blob/master/install.sh) script included within the repository to install all the dependencies required by Spectra. You **must** have a version of pip installed on your machine to ensure the success of the setup script.
 
 The script will install cv2 and imagehash to your global python modules.
 
 ## Usage
 ```
 #For Python 2 Users
-python analyze.py $IMG_PATH
+python analyze.py $IMG_PATH $SCENE_THRES $DUPLICATE_THRES $SHARPNESS_THRESH
 
 #For Python 3 Users
-python3 analyze.py $IMG_PATH
+python3 analyze.py $IMG_PATH $SCENE_THRES $DUPLICATE_THRES $SHARPNESS_THRESH
+
 ```

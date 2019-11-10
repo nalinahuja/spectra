@@ -1,88 +1,56 @@
 #Developed by Nalin Ahuja, nalinahuja22
 
-import os
 import sys
 import image
 
-def analyze(dir, scene_threshold = None, duplicate_threshold = None, blur_threshold = None):
+def analyze(args):
     #Global Assignment
     global image
 
-    #Analyze Images
-    image_grp = image.process(os.path.normpath(dir))
+    #Analyze Directory
+    image_grp = image.process(args)
 
     #Print Scenes Detected
-    print("*" + str(image_grp.detect_scenes(threshold = scene_threshold)) + " scenes detected*")
+    print("\n*" + str(len(image_grp.image_scenes)) + " scenes detected*")
 
     #Print Hashing Values
     if (not(len(image_grp.hash_diffs) == 0)):
         cnt =  1
-        print("\n*Hash Differences*")
+        print("\n*Image Differences*")
         for hash in image_grp.hash_diffs:
             print("Difference between images {} and {}: {:02}%".format(cnt, cnt + 1, hash))
             cnt += 1
 
-    #Print Duplicate Array
-    if (not(len(image_grp.detect_duplicates(threshold = duplicate_threshold)) == 0)):
+    #Print Duplicates Array
+    if (not(len(image_grp.image_duplicates) == 0)):
         print("\n*Possible Duplicate Images*")
-        for scene in image_grp.detect_duplicates(threshold = duplicate_threshold):
+        for scene in image_grp.image_duplicates:
             print(scene)
 
     #Print Blur Array
-    if (not(len(image_grp.detect_blur(threshold = blur_threshold)) == 0)):
+    if (not(len(image_grp.blurred_images) == 0)):
         print("\n*Possible Blurry Images*")
-        for image in image_grp.detect_blur(threshold = blur_threshold):
+        for image in image_grp.blurred_images:
             print(image)
 
-#End Analyze Function----------------------------------------------------------------------------------------------------------------------------------
+#End Analyze Function------------------------------------------------------------------------------------------------------------------------------------------------
 
-def format(arr):
-    for i in range(len(arr)):
-        if (arr[i] == str("def")):
-            arr[i] = None
-        elif (i > 0):
-            arr[i] = int(arr[i])
+def format(args):
+    while (len(args) < 4):
+        args.append(None)
+    return args
 
-#End Util Function-------------------------------------------------------------------------------------------------------------------------------------
+#End Util Function---------------------------------------------------------------------------------------------------------------------------------------------------
 
 if __name__ == "__main__":
-    data_in = []
-    no_error = True
+    args = sys.argv[1:]
 
-    #Param Ingest
     try:
-        data_in.append(sys.argv[1])
-        data_in.append(sys.argv[2])
-        data_in.append(sys.argv[3])
-        data_in.append(sys.argv[4])
-
-    #Invlaid File Location Catch
+        if (len(args) == 0):
+            print("ERROR: No Arguments Found")
+        else:
+            analyze(format(args))
     except FileNotFoundError:
-        print("ERROR: Invalid Directory!")
+        print("ERROR: Indicated Directory is Invalid")
 
-    #Missing Param Catch
-    except IndexError:
-        no_error = False
-
-        #Format data_in
-        format(data_in)
-
-        #Determine Param Count
-        if (len(data_in) == 0):
-            print("ERROR: Please Indicate Valid a Directory!")
-        elif (len(data_in) == 1):
-            analyze(data_in[0])
-        elif (len(data_in) == 2):
-            analyze(data_in[0], scene_threshold = data_in[1])
-        elif (len(data_in) == 3):
-            analyze(data_in[0], scene_threshold = data_in[1], duplicate_threshold = data_in[2])
-
-    #Complete Param List Analyze Call
-    if (no_error):
-        #Format data_in
-        format(data_in)
-
-        #Call analyze Function
-        analyze(data_in[0], scene_threshold = data_in[1], duplicate_threshold = data_in[2], blur_threshold = data_in[3])
-
-#End Main Function-------------------------------------------------------------------------------------------------------------------------------------
+#End Main Function---------------------------------------------------------------------------------------------------------------------------------------------------
