@@ -81,7 +81,7 @@ class process:
                         image_data = {'dir': os.path.realpath(path), 'file_name': file_name, 'path': os.path.join(path, file_name)}
                         if (self.image_path != image_data['dir']):
                             move(image_data['path'], os.path.realpath("{}/{}".format(self.image_path, image_data['file_name'])))
-                        self.image_list.append(os.path.join(self.image_path, image_data['file_name']))
+                        self.image_list.append(os.path.join("{}".format(self.image_path), image_data['file_name']))
                         print("Loaded {} Images - {}".format(cnt, self.image_path), end="\r")
                         cnt += 1
 
@@ -241,7 +241,7 @@ class process:
 
                         #Generate Source and Destination Paths
                         src = normalize(image_scene)
-                        dest = normalize(formDir([image_scene[0:image_scene.rfind('/')], _scene.format(i + 1), image_directory[2]]))
+                        dest = normalize(formDir([image_scene[0:image_scene.rfind('/')], _scene.format(i + 1), image_directory[-1:][0]]))
 
                         #Move Files to Scene Folders
                         move(src, dest)
