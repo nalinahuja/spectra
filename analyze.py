@@ -45,12 +45,12 @@ def format(args):
 if __name__ == "__main__":
     args = sys.argv[1:]
 
-    try:
-        if (len(args) == 0):
-            print("ERROR: No Arguments Found")
-        else:
-            analyze(format(args))
-    except FileNotFoundError:
-        print("ERROR: Indicated Directory is Invalid")
+    # try:
+    if (len(args) == 0):
+        print("ERROR: No Arguments Found")
+    else:
+        analyze(format(args))
+    # except FileNotFoundError:
+    #     print("ERROR: Image Load Error")
 
 #End Main Function---------------------------------------------------------------------------------------------------------------------------------------------------
