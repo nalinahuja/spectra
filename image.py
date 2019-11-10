@@ -206,8 +206,8 @@ class process:
 
     def organize_directory(self):
         if (self.image_scenes != None):
-            #Declare Subroutine
-            print("Organizing Images In {}".format(self.image_path))
+            #Local Import
+            import file
 
             #Iterate over image_scenes array
             for i in range(len(self.image_scenes)):
@@ -215,16 +215,20 @@ class process:
                 for j in range(len(self.image_scenes[i])):
                     try:
                         #Get Image Directory Contents
-                        image_directory = self.image_scenes[i][j].split(file._fslash)
+                        image_scene = self.image_scenes[i][j]
+                        image_directory = image_scene.split(file._fslash)
 
                         #Generate Source and Destination Paths
-                        src = file.normalize(self.image_scenes[i][j])
-                        dest = file.normalize(file.formDir([image_directory[0], file._scene.format(i + 1), image_directory[1]]))
+                        src = file.normalize(image_scene)
+                        dest = file.normalize(file.formDir([image_scene[0:image_scene.rfind('/')], file._scene.format(i + 1), image_directory[2]]))
 
                         #Move Files to Scene Folders
                         file.move(src, dest)
                     except FileNotFoundError:
                         pass
+
+            #Declare Subroutine
+            print("Organized Images In ./{}".format(self.image_path))
         else:
             print("ERROR: No Scenes Found to Analyze")
 
