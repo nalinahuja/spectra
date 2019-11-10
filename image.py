@@ -89,7 +89,7 @@ class process:
 
             #Calculate Hash Values
             for image in self.image_list:
-                print("Processing Image Data: {}%".format(int(cnt * 100 / float(len(self.image_list)))), end="\r")
+                print("Processing Images - {}%".format(int(cnt * 100 / float(len(self.image_list)))), end="\r")
                 image_hashes.append(imagehash.average_hash(Image.open(image)))
                 cnt += 1
 

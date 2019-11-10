@@ -16,7 +16,7 @@ def analyze(args):
     #Print Hashing Values
     if (not(len(image_grp.hash_diffs) == 0)):
         cnt =  1
-        print("\n*Hash Differences*")
+        print("\n*Image Differences*")
         for hash in image_grp.hash_diffs:
             print("Difference between images {} and {}: {:02}%".format(cnt, cnt + 1, hash))
             cnt += 1
@@ -49,7 +49,7 @@ if __name__ == "__main__":
 
     try:
         if (len(args) == 0):
-            print("ERROR: Please Indicate a Valid Directory")
+            print("ERROR: No Arguments Found")
         else:
             analyze(format(args))
     except FileNotFoundError:
