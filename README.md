@@ -1,9 +1,7 @@
 # Spectra
 Spectra is an image processing algorithm designed to detect scenes, similarity, and blur in sequentially ordered images. The algorithm is also capable of sorting images based on scenes and give suggestions to the user to review and perhaps delete duplicate files.
 
-Automatic labeling of images based on image attributes coming soon.
-
-Supports JPG, JPEG, TIFF, and PNG file formats.
+Supports JPG, JPEG, PNG, and TIFF file formats.
 
 ## Install Dependencies
 
@@ -14,9 +12,9 @@ The script will install cv2 and imagehash to your global python modules.
 ## Usage
 ```
 #For Python 2 Users
-python analyze.py $IMG_PATH $SCENE_THRES $DUPLICATE_THRES $SHARPNESS THRESH
+python analyze.py $IMG_PATH $SCENE_THRES $DUPLICATE_THRES $SHARPNESS_THRESH
 
 #For Python 3 Users
-python3 analyze.py $IMG_PATH $SCENE_THRES $DUPLICATE_THRES $SHARPNESS THRESH
+python3 analyze.py $IMG_PATH $SCENE_THRES $DUPLICATE_THRES $SHARPNESS_THRESH
 
 ```

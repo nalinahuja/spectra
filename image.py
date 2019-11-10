@@ -73,7 +73,7 @@ class process:
             #Normalize and Store Image Paths
             for path, subdirs, files in os.walk(self.image_path):
                 for file_name in files:
-                    if (file_name.endswith((".jpg", ".jpeg", ".png", ".JPG", ".JPEG", ".PNG"))):
+                    if (file_name.endswith((".jpg", ".jpeg", ".png", ".tiff", ".JPG", ".JPEG", ".PNG", ".TIFF"))):
                         image_data = {'dir': os.path.realpath(path), 'file_name': file_name, 'path': os.path.join(path, file_name)}
                         if (self.image_path != image_data['dir']):
                             move(image_data['path'], os.path.realpath("{}/{}".format(self.image_path, image_data['file_name'])))
