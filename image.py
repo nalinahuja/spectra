@@ -81,8 +81,8 @@ class process:
                         image_data = {'dir': os.path.realpath(path), 'file_name': file_name, 'path': os.path.join(path, file_name)}
                         if (self.image_path != image_data['dir']):
                             move(image_data['path'], os.path.realpath("{}/{}".format(self.image_path, image_data['file_name'])))
-                        self.image_list.append(os.path.join("./{}".format(self.image_path), image_data['file_name']))
-                        print("Loaded {} Images - ./{}".format(cnt, self.image_path), end="\r")
+                        self.image_list.append(os.path.join(self.image_path, image_data['file_name']))
+                        print("Loaded {} Images - {}".format(cnt, self.image_path), end="\r")
                         cnt += 1
 
             #Delete Empty Directories
@@ -95,7 +95,7 @@ class process:
                         pass
 
             #Declare Subroutine
-            print("Loaded All Images - ./{}".format(self.image_path))
+            print("Loaded All Images - {}".format(self.image_path))
 
             #Sort Image Paths in Lexicographical Order
             self.image_list.sort()
