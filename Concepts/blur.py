@@ -1,43 +1,32 @@
 import numpy as np
+import os
 
 from scipy.ndimage import variance
 from skimage import io
 from skimage.color import rgb2gray
 from skimage.filters import laplace
-from skimage.transform import resize
 
-# Load image
-path1 = "./dset/image 1.png"
-path2 = "./dset/image 2.png"
-img1 = io.imread(path1)
-img2 = io.imread(path2)
+path = os.path.normpath("./dset")
 
-# Grayscale image
-img1 = rgb2gray(img1)
-img2 = rgb2gray(img2)
+edge_laplace1 = None
 
-# Edge detection
-edge_laplace1 = laplace(img1, ksize=10)
-edge_laplace2 = laplace(img2, ksize=10)
+variancelist = []
+maximum = []
+label = []
 
-# Print output
-print("Sharp:")
-print(f"Variance: {variance(edge_laplace1)}")
-print(f"Maximum : {np.amax(edge_laplace1)}")
-print("\nBlurry:")
-print(f"Variance: {variance(edge_laplace2)}")
-print(f"Maximum : {np.amax(edge_laplace2)}")
+for file in os.listdir(path):
+    if file.endswith((".jpg", ".png", ".jpeg", ".JPG", ".JPEG", ".PNG")):
+        # Load image
+        img1 = io.imread(os.path.join(path, file))
 
-import cv2
+        # Grayscale image
+        img1 = rgb2gray(img1)
 
-loaded_image = cv2.imread(path1)
-cv_gray_image = cv2.cvtColor(loaded_image, cv2.COLOR_BGR2GRAY)
-image_variance = cv2.Laplacian(cv_gray_image, cv2.CV_64F).var()
+        # Print output
+        variancelist.append(variance(laplace(img1, ksize=10)))
+        maximum.append(np.amax(laplace(img1, ksize=10)))
+        label.append(file)
 
-print("\nBlur: " + str(image_variance))
-
-loaded_image = cv2.imread(path2)
-cv_gray_image = cv2.cvtColor(loaded_image, cv2.COLOR_BGR2GRAY)
-image_variance = cv2.Laplacian(cv_gray_image, cv2.CV_64F).var()
-
-print("Blur: " + str(image_variance))
+print(variancelist)
+print(maximum)
+print(label)
