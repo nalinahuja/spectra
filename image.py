@@ -15,12 +15,15 @@ class process:
         #Process Arguments
         self.image_path = file.normalize(args[0])
         self.scene_threshold = 45 if args[1] == None else args[1]
-        self.dupli_threshold = 15 if args[2] == None else args[2]
+        self.dupli_threshold = 20 if args[2] == None else args[2]
         self.sharp_threshold = 15 if args[3] == None else args[3]
 
         #Define Image Data Lists
         self.image_list = None
         self.hash_diffs = None
+
+        #Define Processed Image Data
+        self.image_blur = None
         self.image_scenes = None
         self.image_duplicates = None
 
@@ -32,7 +35,7 @@ class process:
 
         #Analyze Image Data
         self._detect_scenes()
-        # self._detect_duplicates()      #TODO
+        self._detect_duplicates()
         # self._detect_blur()            #TODO
 
         #Cleanup Image Directory
@@ -139,39 +142,37 @@ class process:
 
     #End Scene Function---------------------------------------------------------------------------------------------------------------------------------------------
 
-    # def _detect_duplicates(self):
-    #     if (self.hash_diffs != None):
-    #         #Initialize Duplicate Array
-    #         self.image_duplicates = []
-    #
-    #         #Initialize Scene Array
-    #         duplicates = []
-    #
-    #         #Initialize Image Counter
-    #         curr_image = 0
-    #
-    #         print(self.hash_diffs)
-    #
-    #         #Determine Duplicates
-    #         for diff in self.hash_diffs:
-    #             if (diff <= self.dupli_threshold):
-    #                 if (not(self.image_list[curr_image] in duplicates)):
-    #                     duplicates.append(self.image_list[curr_image])
-    #                 if (not(self.image_list[curr_image + 1] in duplicates)):
-    #                     duplicates.append(self.image_list[curr_image + 1])
-    #             else:
-    #                 if (len(duplicates) > 0):
-    #                     self.image_duplicates.append(duplicates)
-    #                     duplicates = []
-    #
-    #             curr_image += 1
-    #
-    #         if (not(self.image_list[curr_image] in duplicates) and curr_image != len(self.image_list)):
-    #             duplicates.append(self.image_list[curr_image])
-    #         if (len(duplicates) > 0):
-    #             self.image_scenes.append(duplicates)
-    #     else:
-    #         print("ERROR: No Image Differences Found to Process")
+    def _detect_duplicates(self):
+        if (self.hash_diffs != None):
+            #Initialize Duplicate Array
+            self.image_duplicates = []
+
+            #Initialize Scene Array
+            duplicates = []
+
+            #Initialize Image Counter
+            curr_image = 0
+
+            #Determine Duplicates
+            for diff in self.hash_diffs:
+                if (diff <= self.dupli_threshold):
+                    if (not(self.image_list[curr_image] in duplicates)):
+                        duplicates.append(self.image_list[curr_image])
+                    if (not(self.image_list[curr_image + 1] in duplicates)):
+                        duplicates.append(self.image_list[curr_image + 1])
+                else:
+                    if (len(duplicates) > 0):
+                        self.image_duplicates.append(duplicates)
+                        duplicates = []
+
+                curr_image += 1
+
+            if (not(self.image_list[curr_image] in duplicates) and curr_image != len(self.image_list)):
+                duplicates.append(self.image_list[curr_image])
+            if (len(duplicates) > 0):
+                self.image_duplicates.append(duplicates)
+        else:
+            print("ERROR: No Image Differences Found to Process")
 
     #End Duplicate Function----------------------------------------------------------------------------------------------------------------------------------------
 
