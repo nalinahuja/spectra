@@ -36,10 +36,11 @@ class process:
         #Analyze Image Data
         self._detect_scenes()
         self._detect_duplicates()
-        # self._detect_blur()            #TODO
+
+        # self._detect_blur()
 
         #Cleanup Image Directory
-        # self.organize_directory()      #TODO
+        self.organize_directory()
 
     #End Object Constructor----------------------------------------------------------------------------------------------------------------------------------------
 
@@ -176,7 +177,7 @@ class process:
 
     #End Duplicate Function----------------------------------------------------------------------------------------------------------------------------------------
 
-    # def detect_blur(self, threshold = None):
+    # def detect_blur(self):
     #     #Process Set Arguments
     #     if (not(threshold is None)):
     #         self.blur_threshold = threshold
@@ -203,25 +204,28 @@ class process:
 
     #End Blur Function---------------------------------------------------------------------------------------------------------------------------------------------
 
-    # def organize_directory(self):
-    #     if (self.image_scenes != None):
-    #         #Iterate over image_scenes array
-    #         for i in range(len(self.image_scenes)):
-    #             os.mkdir(file.formDir([self.image_path, file._scene.format(i + 1)]))
-    #             for j in range(len(self.image_scenes[i])):
-    #                 try:
-    #                     #Get Image Directory Contents
-    #                     image_directory = self.image_scenes[i][j].split(file._fslash)
-    #
-    #                     #Generate Source and Destination Paths
-    #                     src = file.normalize(self.image_scenes[i][j])
-    #                     dest = file.normalize(file.formDir([image_directory[0], file._scene.format(i + 1), image_directory[1]]))
-    #
-    #                     #Move Files to Scene Folders
-    #                     file.move(src, dest)
-    #                 except:
-    #                     pass
-    #     else:
-    #         print("ERROR: No Scenes Found to Analyze")
+    def organize_directory(self):
+        if (self.image_scenes != None):
+            #Declare Subroutine
+            print("Organizing Images In {}".format(self.image_path))
+
+            #Iterate over image_scenes array
+            for i in range(len(self.image_scenes)):
+                os.mkdir(file.formDir([self.image_path, file._scene.format(i + 1)]))
+                for j in range(len(self.image_scenes[i])):
+                    try:
+                        #Get Image Directory Contents
+                        image_directory = self.image_scenes[i][j].split(file._fslash)
+
+                        #Generate Source and Destination Paths
+                        src = file.normalize(self.image_scenes[i][j])
+                        dest = file.normalize(file.formDir([image_directory[0], file._scene.format(i + 1), image_directory[1]]))
+
+                        #Move Files to Scene Folders
+                        file.move(src, dest)
+                    except FileNotFoundError:
+                        pass
+        else:
+            print("ERROR: No Scenes Found to Analyze")
 
     #End User Functions--------------------------------------------------------------------------------------------------------------------------------------------
