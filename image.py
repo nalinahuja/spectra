@@ -39,8 +39,8 @@ class process:
         self.hash_diffs = None
 
         #Define Processed Image Data
-        self.image_blur = None
         self.image_scenes = None
+        self.blurred_images = None
         self.image_duplicates = None
 
         #Fetch Directory Contents
@@ -193,29 +193,15 @@ class process:
     #End Duplicate Function-----------------------------------------------------------------------------------------------------------------------------------------
 
     def detect_blur(self):
-        #Process Set Arguments
-        if (not(threshold is None)):
-            self.blur_threshold = threshold
+        if (self.image_path != None):
+            #Initalize Blurred Images Array
+            self.blurred_images = []
 
-        #Initalize Blurred Images Array
-        blurred_images = []
-
-        for image in self.image_list:
-            loaded_image = cv2.imread(image)
-            cv_gray_image = cv2.cvtColor(loaded_image, cv2.COLOR_BGR2GRAY)
-            image_variance = cv2.Laplacian(cv_gray_image, cv2.CV_64F).var()
-
-            print(image + " : " + str(image_variance))
-
-            # im = Image.open(image).convert('L')
-            # stat = ImageStat.Stat(im)
-            # stat.mean[0]
-
-            # if (image_variance < self.blur_threshold):
-            # blurred_images.append(image)
-
-        #Return Blurred Images Array
-        return blurred_images
+            #Iterate Over Image List
+            for image in self.image_list:
+                pass
+        else:
+            print("ERROR: Image Path is Invalid")
 
     #End Blur Function----------------------------------------------------------------------------------------------------------------------------------------------
 
