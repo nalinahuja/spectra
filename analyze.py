@@ -27,13 +27,11 @@ def analyze(args):
         for scene in image_grp.image_duplicates:
             print(scene)
 
-    # #Print Blur Array
-    # blurred = image_grp.detect_blur()
-    #
-    # if (not(len(blurred) == 0)):
-    #     print("\n*Possible Blurry Images*")
-    #     for image in blurred:
-    #         print(image)
+    #Print Blur Array
+    if (not(len(image_grp.blurred_images) == 0)):
+        print("\n*Possible Blurry Images*")
+        for image in image_grp.blurred_images:
+            print(image)
 
 #End Analyze Function------------------------------------------------------------------------------------------------------------------------------------------------
 

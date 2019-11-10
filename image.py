@@ -1,6 +1,17 @@
 #Developed by Nalin Ahuja, nalinahuja22
 
 import os
+import cv2
+import imagehash
+import numpy as np
+
+from skimage import io
+from scipy.ndimage import variance
+from skimage.color import rgb2gray
+from skimage.filters import laplace
+from PIL import Image, ImageStat
+
+#End Imports--------------------------------------------------------------------------------------------------------------------------------------------------------
 
 _fslash = "/"
 _scene = "Scene {}"
@@ -19,12 +30,9 @@ def formDir(arr):
 
 #End File Management Functions--------------------------------------------------------------------------------------------------------------------------------------
 
-import cv2
-import imagehash
-
-from PIL import Image, ImageStat
-
 _precision = 1.75
+_max_threshold = 0.5
+_var_threshold = 0.0005
 
 class process:
     def __init__(self, args):
@@ -47,15 +55,14 @@ class process:
         self._get_dir_contents()
 
         #Calculate Image Data
-        self._calculate_hash_differences()
+        self._process_images()
 
         #Analyze Image Data
         self._detect_scenes()
         self._detect_duplicates()
-        # self._detect_blur()
 
         #Cleanup Image Directory
-        self.organize_directory()
+        self._organize_directory()
 
     #End Object Constructor-----------------------------------------------------------------------------------------------------------------------------------------
 
@@ -74,8 +81,8 @@ class process:
                         image_data = {'dir': os.path.realpath(path), 'file_name': file_name, 'path': os.path.join(path, file_name)}
                         if (self.image_path != image_data['dir']):
                             move(image_data['path'], os.path.realpath("{}/{}".format(self.image_path, image_data['file_name'])))
-                            print("Loaded {} Images - ./{}".format(cnt, self.image_path), end="\r")
                         self.image_list.append(os.path.join("./{}".format(self.image_path), image_data['file_name']))
+                        print("Loaded {} Images - ./{}".format(cnt, self.image_path), end="\r")
                         cnt += 1
 
             #Delete Empty Directories
@@ -97,7 +104,7 @@ class process:
 
     #End Util Fucntions---------------------------------------------------------------------------------------------------------------------------------------------
 
-    def _calculate_hash_differences(self):
+    def _process_images(self):
         if (self.image_list != None):
             #Initialize Hash List
             image_hashes = []
@@ -107,12 +114,11 @@ class process:
 
             #Calculate Hash Values
             for image in self.image_list:
-                print("Processing Images - {}%".format(int(cnt * 100 / float(len(self.image_list)))), end="\r")
+                print("Processing Images - {}%".format(int(cnt * 100 / float(len(self.image_list) * 2))), end="\r")
                 image_hashes.append(imagehash.average_hash(Image.open(image)))
                 cnt += 1
 
-            #Declare Subroutine
-            print("Processed All Images       ")
+            #End Image Hash-----------------------------------------------------------------------------------------------------------------------------------------
 
             #Initialize Diff List
             self.hash_diffs = []
@@ -121,6 +127,34 @@ class process:
             for i in range(len(image_hashes) - 1):
                 self.hash_diffs.append((image_hashes[i + 1] - image_hashes[i]) * _precision)
 
+            #End Hash Diff Computation------------------------------------------------------------------------------------------------------------------------------
+
+            #Initalize Blurred Images Array
+            self.blurred_images = []
+
+            #Iterate Over Image List
+            for image in self.image_list:
+                #Load Image
+                loaded_image = io.imread(image)
+
+                #Grayscale Image
+                loaded_image = rgb2gray(loaded_image)
+
+                #Determine Edges
+                laplace_data = laplace(loaded_image, ksize=10)
+                variance_score = variance(laplace_data)
+                maximum_score = np.amax(laplace_data)
+
+                #Accordinly Categorize Images
+                if (variance_score < _var_threshold and maximum_score < _max_threshold):
+                    self.blurred_images.append(image)
+
+                #Declare Subroutine
+                print("Processing Images - {}%".format(int(cnt * 100 / float(len(self.image_list) * 2))), end="\r")
+                cnt += 1
+
+            #Declare Subroutine
+            print("Processed All Images       ")
         else:
             print("ERROR: No Images Found to Process")
 
@@ -194,20 +228,7 @@ class process:
 
     #End Duplicate Function-----------------------------------------------------------------------------------------------------------------------------------------
 
-    def detect_blur(self):
-        if (self.image_path != None):
-            #Initalize Blurred Images Array
-            self.blurred_images = []
-
-            #Iterate Over Image List
-            for image in self.image_list:
-                pass
-        else:
-            print("ERROR: Image Path is Invalid")
-
-    #End Blur Function----------------------------------------------------------------------------------------------------------------------------------------------
-
-    def organize_directory(self):
+    def _organize_directory(self):
         if (self.image_scenes != None):
             #Iterate over image_scenes array
             for i in range(len(self.image_scenes)):
@@ -233,3 +254,5 @@ class process:
             print("ERROR: No Scenes Found to Analyze")
 
     #End Organize Function------------------------------------------------------------------------------------------------------------------------------------------
+
+#End Process Class--------------------------------------------------------------------------------------------------------------------------------------------------
