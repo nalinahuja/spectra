@@ -15,13 +15,13 @@ then
   echo -e "\nInstalling Python Dependencies..."
   pip install opencv-python
   pip install imagehash
-  pip install sklearn
+  pip install -U numpy scipy scikit-learn
 elif [ $version == 3.x ]
 then
   echo -e "\nInstalling Python3 Dependencies..."
   pip3 install opencv-python
   pip3 install imagehash
-  pip3 install sklearn
+  pip3 install -U numpy scipy scikit-learn
 fi
 
 echo -e "\nSuccessfully Installed Imagehash and cv2!"
