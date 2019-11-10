@@ -30,6 +30,8 @@ class process:
         #Calculate Image Data
         self._calculate_hash_differences()
 
+        print(self.hash_diffs)
+
         #Analyze Image Data
         # self._detect_scenes()          #TODO
 
