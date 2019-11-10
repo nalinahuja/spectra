@@ -30,10 +30,10 @@ class process:
         #Calculate Image Data
         self._calculate_hash_differences()
 
-        print(self.hash_diffs)
-
         #Analyze Image Data
-        # self._detect_scenes()          #TODO
+        self._detect_scenes()
+
+        print(self.image_scenes)
 
         # self._detect_duplicates()      #TODO
         # self._detect_blur()            #TODO
@@ -48,6 +48,9 @@ class process:
             #Set Global Scope
             global file
 
+            #Declare Process Counter
+            print("Loaded Images From ./{}".format(self.image_path))
+
             #Initialize Image Paths List
             self.image_list = []
 
@@ -58,7 +61,7 @@ class process:
                         image_data = {'dir': os.path.realpath(path), 'file_name': file_name, 'path': os.path.join(path, file_name)}
                         if (self.image_path != image_data['dir']):
                             file.move(image_data['path'], os.path.realpath("{}/{}".format(self.image_path, image_data['file_name'])))
-                        self.image_list.append(os.path.join(self.image_path, image_data['file_name']))
+                        self.image_list.append(os.path.join("./{}".format(self.image_path), image_data['file_name']))
 
             #Delete Empty Directories
             for file in os.listdir(self.image_path):
@@ -81,9 +84,14 @@ class process:
             #Initialize Hash List
             image_hashes = []
 
+            #Declare Process Counter
+            cnt = 0
+
             #Calculate Hash Values
             for image in self.image_list:
+                print("Processing Image Data: {}%".format(int(cnt * 100 / float(len(self.image_list)))), end="\r")
                 image_hashes.append(imagehash.average_hash(Image.open(image)))
+                cnt += 1
 
             #Initialize Diff List
             self.hash_diffs = []
@@ -119,7 +127,6 @@ class process:
                         scene.append(self.image_list[curr_image])
                     if (not(self.image_list[curr_image + 1] in scene)):
                         scene.append(self.image_list[curr_image + 1])
-
                 curr_image += 1
 
             if (curr_image < len(self.image_list) and not(self.image_list[curr_image] in scene)):
