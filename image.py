@@ -1,7 +1,23 @@
 #Developed by Nalin Ahuja, nalinahuja22
 
 import os
-import file
+
+_fslash = "/"
+_scene = "Scene {}"
+
+def move(src, dest):
+    os.rename(src, dest)
+
+def normalize(path):
+    return os.path.normpath(path)
+
+def formDir(arr):
+    dir = ""
+    for path in arr:
+        dir += str(path) + _fslash
+    return normalize(dir[:-1])
+
+#End File Management Functions--------------------------------------------------------------------------------------------------------------------------------------
 
 import cv2
 import imagehash
@@ -13,7 +29,7 @@ _precision = 1.75
 class process:
     def __init__(self, args):
         #Process Arguments
-        self.image_path = file.normalize(args[0])
+        self.image_path = normalize(args[0])
         self.scene_threshold = 45 if args[1] == None else args[1]
         self.dupli_threshold = 20 if args[2] == None else args[2]
         self.sharp_threshold = 15 if args[3] == None else args[3]
@@ -36,13 +52,12 @@ class process:
         #Analyze Image Data
         self._detect_scenes()
         self._detect_duplicates()
-
-        # self._detect_blur()
+        self._detect_blur()
 
         #Cleanup Image Directory
         self.organize_directory()
 
-    #End Object Constructor----------------------------------------------------------------------------------------------------------------------------------------
+    #End Object Constructor-----------------------------------------------------------------------------------------------------------------------------------------
 
     def _get_dir_contents(self):
         if (self.image_path != None):
@@ -61,7 +76,7 @@ class process:
                     if (file_name.endswith((".jpg", ".jpeg", ".png", ".JPG", ".JPEG", ".PNG"))):
                         image_data = {'dir': os.path.realpath(path), 'file_name': file_name, 'path': os.path.join(path, file_name)}
                         if (self.image_path != image_data['dir']):
-                            file.move(image_data['path'], os.path.realpath("{}/{}".format(self.image_path, image_data['file_name'])))
+                            move(image_data['path'], os.path.realpath("{}/{}".format(self.image_path, image_data['file_name'])))
                         self.image_list.append(os.path.join("./{}".format(self.image_path), image_data['file_name']))
 
             #Delete Empty Directories
@@ -175,34 +190,34 @@ class process:
         else:
             print("ERROR: No Image Differences Found to Process")
 
-    #End Duplicate Function----------------------------------------------------------------------------------------------------------------------------------------
+    #End Duplicate Function-----------------------------------------------------------------------------------------------------------------------------------------
 
-    # def detect_blur(self):
-    #     #Process Set Arguments
-    #     if (not(threshold is None)):
-    #         self.blur_threshold = threshold
-    #
-    #     #Initalize Blurred Images Array
-    #     blurred_images = []
-    #
-    #     for image in self.image_list:
-    #         loaded_image = cv2.imread(image)
-    #         cv_gray_image = cv2.cvtColor(loaded_image, cv2.COLOR_BGR2GRAY)
-    #         image_variance = cv2.Laplacian(cv_gray_image, cv2.CV_64F).var()
-    #
-    #         print(image + " : " + str(image_variance))
-    #
-    #         # im = Image.open(image).convert('L')
-    #         # stat = ImageStat.Stat(im)
-    #         # stat.mean[0]
-    #
-    #         # if (image_variance < self.blur_threshold):
-    #         # blurred_images.append(image)
-    #
-    #     #Return Blurred Images Array
-    #     return blurred_images
+    def detect_blur(self):
+        #Process Set Arguments
+        if (not(threshold is None)):
+            self.blur_threshold = threshold
 
-    #End Blur Function---------------------------------------------------------------------------------------------------------------------------------------------
+        #Initalize Blurred Images Array
+        blurred_images = []
+
+        for image in self.image_list:
+            loaded_image = cv2.imread(image)
+            cv_gray_image = cv2.cvtColor(loaded_image, cv2.COLOR_BGR2GRAY)
+            image_variance = cv2.Laplacian(cv_gray_image, cv2.CV_64F).var()
+
+            print(image + " : " + str(image_variance))
+
+            # im = Image.open(image).convert('L')
+            # stat = ImageStat.Stat(im)
+            # stat.mean[0]
+
+            # if (image_variance < self.blur_threshold):
+            # blurred_images.append(image)
+
+        #Return Blurred Images Array
+        return blurred_images
+
+    #End Blur Function----------------------------------------------------------------------------------------------------------------------------------------------
 
     def organize_directory(self):
         if (self.image_scenes != None):
@@ -211,19 +226,19 @@ class process:
 
             #Iterate over image_scenes array
             for i in range(len(self.image_scenes)):
-                os.mkdir(file.formDir([self.image_path, file._scene.format(i + 1)]))
+                os.mkdir(formDir([self.image_path, _scene.format(i + 1)]))
                 for j in range(len(self.image_scenes[i])):
                     try:
                         #Get Image Directory Contents
                         image_scene = self.image_scenes[i][j]
-                        image_directory = image_scene.split(file._fslash)
+                        image_directory = image_scene.split(_fslash)
 
                         #Generate Source and Destination Paths
-                        src = file.normalize(image_scene)
-                        dest = file.normalize(file.formDir([image_scene[0:image_scene.rfind('/')], file._scene.format(i + 1), image_directory[2]]))
+                        src = normalize(image_scene)
+                        dest = normalize(formDir([image_scene[0:image_scene.rfind('/')], _scene.format(i + 1), image_directory[2]]))
 
                         #Move Files to Scene Folders
-                        file.move(src, dest)
+                        move(src, dest)
                     except FileNotFoundError:
                         pass
 
@@ -232,4 +247,4 @@ class process:
         else:
             print("ERROR: No Scenes Found to Analyze")
 
-    #End User Functions--------------------------------------------------------------------------------------------------------------------------------------------
+    #End Organize Function------------------------------------------------------------------------------------------------------------------------------------------
