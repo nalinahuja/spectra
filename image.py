@@ -52,7 +52,7 @@ class process:
             #Normalize and Store Image Paths
             for path, subdirs, files in os.walk(self.image_path):
                 for file_name in files:
-                    if (file_name.endswith((".jpg", ".jpeg", ".png", ".JPG", ".JPEG", ".PNG", ".CR2"))):
+                    if (file_name.endswith((".jpg", ".jpeg", ".png", ".JPG", ".JPEG", ".PNG"))):
                         image_data = {'dir': os.path.realpath(path), 'file_name': file_name, 'path': os.path.join(path, file_name)}
                         if (self.image_path != image_data['dir']):
                             file.move(image_data['path'], os.path.realpath("{}/{}".format(self.image_path, image_data['file_name'])))
@@ -87,8 +87,8 @@ class process:
             self.hash_diffs = []
 
             #Calculate Hash Differences
-            for i in range(len(self.image_hashes) - 1):
-                self.hash_diffs.append((self.image_hashes[i + 1] - self.image_hashes[i]) * _precision)
+            for i in range(len(image_hashes) - 1):
+                self.hash_diffs.append((image_hashes[i + 1] - image_hashes[i]) * _precision)
         else:
             print("ERROR: No Images Found to Process")
 
