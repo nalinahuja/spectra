@@ -221,7 +221,7 @@ class process:
 
             if (not(self.image_list[curr_image] in duplicates) and curr_image != len(self.image_list)):
                 duplicates.append(self.image_list[curr_image])
-            if (len(duplicates) > 0):
+            if (len(duplicates) > 1):
                 self.image_duplicates.append(duplicates)
         else:
             print("ERROR: No Image Differences Found to Process")
