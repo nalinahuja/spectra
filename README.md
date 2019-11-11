@@ -5,16 +5,12 @@ Supports JPG, JPEG, PNG, and TIFF file formats.
 
 ## Install Dependencies
 
-Please run the [install.sh](https://github.com/nalinahuja22/spectra/blob/master/install.sh) script included within the repository to install all the dependencies required by Spectra. You **must** have a version of pip installed on your machine to ensure the success of the setup script.
+Please run the [install.sh](https://github.com/nalinahuja22/spectra/blob/master/install.sh) script included within the repository to install all the dependencies required by Spectra. You **must** have a version of pip3 installed on your machine to ensure the success of the setup script.
 
-The script will install imagehash, scipy, and sklearn to your global python modules.
+The script will install cv2, imagehash, numpy, scipy, and sklearn to your global python modules.
 
 ## Usage
 ```
-#For Python 2 Users
-python analyze.py $IMG_PATH $SCENE_THRES $DUPLICATE_THRES $SHARPNESS_THRESH
-
 #For Python 3 Users
 python3 analyze.py $IMG_PATH $SCENE_THRES $DUPLICATE_THRES $SHARPNESS_THRESH
-
 ```
