@@ -1,0 +1,114 @@
+#!/usr/bin/env bash
+
+#Developed by Nalin Ahuja, nalinahuja22
+
+# End Header-----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+# Program Actions
+YES="y"
+
+# Install Files
+SPECTRA_BINF=./bin
+SPECTRA_LICE=./LICENSE
+SPECTRA_READ=./README.md
+
+# Install Resources
+SPECTRA_FOLD=~/.spectra
+SPECTRA_ERR=./.module_install_log
+
+# End Defined Constants------------------------------------------------------------------------------------------------------------------------------------------------
+
+# Prompt User For Confirmation
+command read -p "Please confirm installation of Spectra [y/n]: " confirm
+
+# Determine Action
+if [[ "${confirm//Y/y}" == $YES ]]
+then
+  # Add Command To Terminal Profile
+  if [[ ! -e $SPECTRA_FOLD ]]
+  then
+    if [[ -f ~/.bashrc ]]
+    then
+      # Add To .
+      command echo -e "\n# spectra Function (spectra [PATH] [PARAMS])\n\nspectra() {\n  command python3 ~/.spectra/bin/spectra.py \"\$@\"\n}\n" >> ~/.bashrc
+    elif [[ -f ~/.zshrc ]]
+    then
+      # Add To .zshrc
+      command echo -e "\n# spectra Function (spectra [PATH] [PARAMS])\n\nspectra() {\n  command python3 ~/.spectra/bin/spectra.py \"\$@\"\n}\n" >> ~/.zshrc
+    elif [[ -f ~/.bash_profile ]]
+    then
+      # Add To .bash_profile
+      command echo -e "\n# spectra Function (spectra [PATH] [PARAMS])\n\nspectra() {\n  command python3 ~/.spectra/bin/spectra.py \"\$@\"\n}\n" >> ~/.bash_profile
+    else
+      # Display Error
+      command echo -e "ERROR: Failed to install command to terminal profile. Installation aborted!"
+
+      # Exit Installation
+      command exit 1
+    fi
+
+    # Confirm Command Installation
+    command echo -e "→ Installed Spectra command to terminal configuration"
+  fi
+
+  # Install Spectra Program Files
+  command mkdir $SPECTRA_FOLD 2> /dev/null
+  command mv $SPECTRA_LICE $SPECTRA_FOLD
+  command mv $SPECTRA_READ $SPECTRA_FOLD
+  command mv $SPECTRA_BINF $SPECTRA_FOLD
+
+  # Install Python Dependency
+  command echo -e "→ Installed Spectra In ~/.spectra"
+  command echo -ne "→ Installing Python3 dependencies - 0%\r"
+  command python3 -m pip install imagehash > $SPECTRA_ERR
+
+  # Error Check Return
+  if [[ $? -gt 0 ]]
+  then
+    command echo -e "ERROR: Python3 module could not be installed"
+    command cat $SPECTRA_ERR
+    command exit 1
+  fi
+
+  # Install Python Dependency
+  command echo -ne "→ Installing Python3 Dependencies - 25%\r"
+  command python3 -m pip install opencv-python > $SPECTRA_ERR
+
+  # Error Check Return
+  if [[ $? -gt 0 ]]
+  then
+    command echo -e "ERROR: Python3 module could not be installed"
+    command cat $SPECTRA_ERR
+    command exit 1
+  fi
+
+  # Install Python Dependency
+  command echo -ne "→ Installing Python3 Dependencies - 50%\r"
+  command python3 -m pip install -U numpy scipy > $SPECTRA_ERR
+
+  # Error Check Return
+  if [[ $? -gt 0 ]]
+  then
+    command echo -e "ERROR: Python3 module could not be installed"
+    command cat $SPECTRA_ERR
+    command exit 1
+  fi
+
+  # Install Python Dependency
+  command echo -ne "→ Installing Python3 Dependencies - 75%\r"
+  command python3 -m pip install -U scikit-image scikit-learn > $SPECTRA_ERR
+
+  # Error Check Return
+  if [[ $? -gt 0 ]]
+  then
+    command echo -e "ERROR: Python3 module could not be installed"
+    command cat $SPECTRA_ERR
+    command exit 1
+  fi
+
+  # Install Python Dependency
+  command echo -ne "→ Installed Python3 dependencies         "
+  command echo -e "\nSpectra successfully installed, please restart your terminal!"
+else
+  command echo -e "\nSpectra installation aborted"
+fi
