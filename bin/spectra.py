@@ -72,22 +72,27 @@ def parse(args):
             try:
                 # Get Threshold Value
                 threshold = int(args[args.index(FLAG) + 1])
+
+                # Range Fix Threshold
+                if (not(threshold is None)):
+                    if (threshold < 0):
+                        threshold = 0
+                    elif (threshold > 100):
+                        threshold = 100
             except ValueError:
                 util.perror("spectra: Unexpected argument data type")
+            except:
+                util.perror("spectra: Fatal error while parsing input arguments")
 
-            # Add To Formatted Argument
-            form_args.append(100 - threshold)
+            # Modify Threshold
+            if (FLAG == SCENE_SENSITIVITY):
+                threshold = 100 - threshold
+
+            # Add As Formatted Argument
+            form_args.append(threshold)
         else:
             # Append Empty Argument
             form_args.append(None)
-
-    # Range Fix Numerical Arguments
-    for i in range(1, len(form_args)):
-        if (not(form_args[i] is None)):
-            if (form_args[i] < 0):
-                form_args[i] = 0
-            elif (form_args[i] > 100):
-                form_args = 100
 
     # Return Formatted Arguments List
     return (form_args)

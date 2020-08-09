@@ -101,9 +101,9 @@ class analyze:
 
         # Initialize Arguments
         self.image_path = util.normalize(args[0])
-        self.scene_threshold = 30 if args[1] is None else args[1]
-        self.dupli_threshold = 20 if args[2] is None else args[2]
-        self.sharp_threshold = 100 if args[3] is None else args[3]
+        self.scene_threshold = 30 if args[2] is None else args[2]
+        self.dupli_threshold = 20 if args[3] is None else args[3]
+        self.sharp_threshold = 100 if args[1] is None else args[1]
 
         # Adjust Precisions
         self.max_threshold *= (self.sharp_threshold / 100)
@@ -370,7 +370,7 @@ class analyze:
             # End Hash Difference Computation--------------------------------------------------------------------------------------------------------------------------
 
             # Update Prompt
-            print("\rProcessed All Images")
+            print("\rProcessed All Images   ")
         else:
             util.perror("spectra: Found no images to process")
 
