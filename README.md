@@ -1,7 +1,7 @@
 # Spectra
 
 <p align="justify">
-Spectra is an image processing algorithm able to detect scenes, similarity, and blur in time ordered ordered image databases. The algorithm is capable of categorizing images based on scenes and give suggestions to the user to review and delete similar and or blurry image files.<br><br>Spectra does not mine or upload user data in any way and operates completely offline. It should be noted that a .spectra_data file and .spectra_temp folder are generated in every directory analyzed in order to speed up the analysis of that directory in the future.<br><br>Supports JPG, JPEG, PNG, and TIFF file formats.
+Spectra is an image processing algorithm able to detect scenes, similarity, and blur in time ordered image databases. The algorithm is capable of categorizing images based on scenes and give suggestions to the user to review and delete similar and or blurry image files.<br><br>Spectra does not mine or upload user data in any way and operates completely offline. It should be noted that a .spectra_data file and .spectra_temp folder are generated in every directory analyzed in order to speed up the analysis of that directory in the future.<br><br>Supports JPG, JPEG, PNG, and TIFF file formats.
 </p>
 
 ## Compatibility
