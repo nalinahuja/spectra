@@ -26,7 +26,7 @@ Then, navigate to the location where the Spectra repository contents have been d
 </p>
 
 ```bash
-spectra() {
+function spectra() {
   command python3 ~/.spectra/bin/spectra.py "$@"
 }
 ```
