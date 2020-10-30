@@ -133,8 +133,11 @@ then
     command exit 1
   fi
 
-  # Display Success Prompt
-  command echo -ne "→ Installed Python3 dependencies\nSpectra successfully installed, please restart your terminal!"
+  # Display Module Install Success
+  command echo -ne "→ Installed Python3 dependencies       \r"
+
+  # Display Installation Success Prompt
+  command echo -e "\nSpectra successfully installed, please restart your terminal!"
 else
   # Display Abort Prompt
   command echo -e "\nSpectra installation aborted"
