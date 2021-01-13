@@ -7,9 +7,6 @@ from const import *
 
 # End Imports-----------------------------------------------------------------------------------------------------------------------------------------------------------
 
-def empty(obj):
-    return (not(obj))
-
 def perror(message, status = 1):
     print(message)
     sys.exit(status)

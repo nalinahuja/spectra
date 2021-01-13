@@ -62,7 +62,7 @@ def load_image_data(image_path):
         file.close()
 
         # Error Check File Data
-        if (util.empty(file_data)):
+        if (not(file_data)):
             return (None)
 
         # Iterate Over File Data
@@ -179,14 +179,14 @@ class analyze:
         print("\rLoaded All Images - {}".format(self.image_path))
 
         # Verify Image List Length
-        if (util.empty(self.image_list)):
+        if (not(self.image_list)):
             util.perror("spectra: No images found")
 
         # Sort Image Paths in Lexicographical Order
         self.image_list.sort()
 
     def organize_directory(self):
-        if (not(self.scenes is None) and not(util.empty(self.scenes))):
+        if (self.scenes):
             # Iterate Over Scenes List
             for curr, scene in enumerate(self.scenes, 1):
                 # Create Scene Folder
@@ -207,12 +207,12 @@ class analyze:
             # Update Prompt
             print("Organized All Images             ")
         else:
-            util.perror("ERROR: No Scenes Found to Analyze")
+            util.perror("spectra: No scenes found to analyze")
 
     # End Directory Fucntions------------------------------------------------------------------------------------------------------------------------------------------
 
     def detect_scenes(self):
-        if (not(self.hash_diffs is None) and not(util.empty(self.hash_diffs))):
+        if (self.hash_diffs):
             # Initalize Scenes List
             self.scenes = []
 
@@ -231,13 +231,13 @@ class analyze:
                         scene.append(self.image_list[curr])
 
             # Append Final Scene
-            if (not(util.empty(scene))):
+            if (scene):
                 self.scenes.append(scene)
         else:
             util.perror("spectra: No image differences found to process")
 
     def detect_duplicates(self):
-        if (not(self.hash_diffs is None) and not(util.empty(self.hash_diffs))):
+        if (self.hash_diffs):
             # Initialize Duplicates List
             self.duplicates = []
 
@@ -266,7 +266,7 @@ class analyze:
     # End Detection Functions------------------------------------------------------------------------------------------------------------------------------------------
 
     def process_images(self):
-        if (not(self.image_list is None) and not(util.empty(self.image_list))):
+        if (self.image_list):
             # Initialize Process Counter
             curr = 0
 
