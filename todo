@@ -1,0 +1,14 @@
+Spectra
+-------
+
+- New installer
+- Update LICENSE
+- Refined README
+- Face detection
+- Refactor codebase
+- Add progress bars
+- Refined main function
+- Refined blur detection
+- Python requirements file
+- Use ArgParse Instead of bullshit Loop
+- Remove imagehash, use cv2 zone alg instead
